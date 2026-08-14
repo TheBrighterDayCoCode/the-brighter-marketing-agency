@@ -1764,7 +1764,7 @@
     }, { threshold: 0.08 });
 
     const revealTargets = document.querySelectorAll(
-      '.section-intro, .section-work, .section-services, .section-process, .section-team, .work-card, .service-item, .process-row, .stat-item'
+      '.section-intro, .section-work, .section-services, .section-team, .work-card, .service-item'
     );
     revealTargets.forEach(el => {
       el.classList.add('will-reveal');
@@ -1927,7 +1927,7 @@
     })();
   </script>
 
-  <!-- Phase 2: GSAP + ScrollTrigger + Lenis -->
+  <!-- Phase 2+3: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
@@ -1938,14 +1938,6 @@
     gsap.registerPlugin(ScrollTrigger);
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
-    ScrollTrigger.scrollerProxy(document.documentElement, {
-      scrollTop(value) {
-        return arguments.length ? lenis.scrollTo(value) : lenis.scroll;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-      }
-    });
     lenis.on('scroll', ScrollTrigger.update);
 
     // Anchor links through Lenis
@@ -1956,8 +1948,10 @@
       });
     });
 
-    // ── MANIFESTO SCRUB REVEAL ───────────────
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ── MANIFESTO PINNED REVEAL ───────────────
+    if (!reducedMotion) {
       gsap.fromTo('.m-phrase',
         { opacity: 0.12 },
         {
@@ -1966,8 +1960,10 @@
           ease: 'none',
           scrollTrigger: {
             trigger: '.section-manifesto',
-            start: 'top 75%',
-            end: 'bottom 30%',
+            pin: true,
+            anticipatePin: 1,
+            start: 'top top+=80',
+            end: '+=640',
             scrub: 1.2,
           }
         }
@@ -1975,6 +1971,48 @@
     } else {
       document.querySelectorAll('.m-phrase').forEach(el => { el.style.opacity = '1'; });
     }
+
+    // ── PROCESS ROWS REVEAL ───────────────────
+    gsap.set('.process-row', { opacity: 0, y: 28 });
+    ScrollTrigger.create({
+      trigger: '.section-process',
+      start: 'top 70%',
+      once: true,
+      onEnter() {
+        gsap.to('.process-row', {
+          opacity: 1, y: 0,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: 'power2.out'
+        });
+      }
+    });
+
+    // ── STATS COUNTER ─────────────────────────
+    document.querySelectorAll('.stat-item').forEach(item => {
+      const el = item.querySelector('.stat-number');
+      const raw = el.textContent.trim();
+      const match = raw.match(/^([\d.]+)(.*)/);
+      if (!match) return;
+      const target = parseFloat(match[1]);
+      const suffix = match[2];
+      const counter = { val: 0 };
+      gsap.set(item, { opacity: 0, y: 20 });
+      ScrollTrigger.create({
+        trigger: item,
+        start: 'top 85%',
+        once: true,
+        onEnter() {
+          gsap.to(item, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+          gsap.to(counter, {
+            val: target,
+            duration: 1.8,
+            ease: 'power2.out',
+            onUpdate() { el.textContent = Math.round(counter.val) + suffix; }
+          });
+        }
+      });
+    });
   </script>
 
 </body>
