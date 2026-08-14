@@ -37,7 +37,7 @@
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; } /* replaced by Lenis in Phase 2 */
+    html { scroll-behavior: auto; }
 
     body {
       font-family: var(--font-roobert);
@@ -732,6 +732,11 @@
     .manifesto-body em {
       font-style: normal;
       color: var(--color-ash);
+    }
+
+    .m-phrase {
+      opacity: 0.12;
+      display: inline;
     }
 
     /* ── PROCESS ────────────────────────────── */
@@ -1474,12 +1479,12 @@
       <div class="section-manifesto">
         <p class="label">— Our Manifesto</p>
         <p class="manifesto-body">
-          We believe a brighter business is built on systems that work,
-          <em>stories that resonate,</em>
-          and relationships that last.
-          Our job is to build the infrastructure, craft the message,
-          and execute with the integrity
-          <em>that turns clients into advocates.</em>
+          <span class="m-phrase">We believe a brighter business is built on systems that work,</span>
+          <span class="m-phrase"><em>stories that resonate,</em></span>
+          <span class="m-phrase">and relationships that last.</span>
+          <span class="m-phrase">Our job is to build the infrastructure, craft the message,</span>
+          <span class="m-phrase">and execute with the integrity</span>
+          <span class="m-phrase"><em>that turns clients into advocates.</em></span>
         </p>
       </div>
     </div>
@@ -1759,7 +1764,7 @@
     }, { threshold: 0.08 });
 
     const revealTargets = document.querySelectorAll(
-      '.section-intro, .section-work, .section-services, .section-manifesto, .section-process, .section-team, .work-card, .service-item, .process-row, .stat-item'
+      '.section-intro, .section-work, .section-services, .section-process, .section-team, .work-card, .service-item, .process-row, .stat-item'
     );
     revealTargets.forEach(el => {
       el.classList.add('will-reveal');
@@ -1920,6 +1925,56 @@
 
       setInterval(rotate, HOLD + DUR + 20);
     })();
+  </script>
+
+  <!-- Phase 2: GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    // ── LENIS SMOOTH SCROLL ──────────────────
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    ScrollTrigger.scrollerProxy(document.documentElement, {
+      scrollTop(value) {
+        return arguments.length ? lenis.scrollTo(value) : lenis.scroll;
+      },
+      getBoundingClientRect() {
+        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+      }
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Anchor links through Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
+      });
+    });
+
+    // ── MANIFESTO SCRUB REVEAL ───────────────
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.fromTo('.m-phrase',
+        { opacity: 0.12 },
+        {
+          opacity: 1,
+          stagger: 0.5,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.section-manifesto',
+            start: 'top 75%',
+            end: 'bottom 30%',
+            scrub: 1.2,
+          }
+        }
+      );
+    } else {
+      document.querySelectorAll('.m-phrase').forEach(el => { el.style.opacity = '1'; });
+    }
   </script>
 
 </body>
