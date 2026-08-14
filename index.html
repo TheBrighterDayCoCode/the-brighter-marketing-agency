@@ -10,6 +10,7 @@
   <meta property="og:description" content="Full-service creative and digital marketing agency based in Austin, TX.">
   <meta property="og:url" content="https://brighterdayagency.com">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://brighterdayagency.com/images/ryan.jpg">
   <meta name="author" content="The Brighter Marketing Agency">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +37,7 @@
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; } /* replaced by Lenis in Phase 2 */
 
     body {
       font-family: var(--font-roobert);
@@ -44,6 +45,68 @@
       color: var(--color-carbon);
       overflow-x: hidden;
     }
+
+    /* ── ARRIVAL ───────────────────────────── */
+
+    #arrival {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .arrival-inner { text-align: center; }
+    .arrival-line {
+      font-size: clamp(11px, 1.15vw, 17px);
+      font-weight: 300;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.26em;
+      line-height: 2.2;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .arrival-dot {
+      display: block;
+      font-size: 5px;
+      color: rgba(255,255,255,0.3);
+      margin: 22px 0;
+      opacity: 0;
+      transition: opacity 0.6s ease 0.25s;
+    }
+    .arrival-city {
+      font-size: clamp(8px, 0.8vw, 11px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.28);
+      text-transform: uppercase;
+      letter-spacing: 0.38em;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+    }
+
+    /* ── CUSTOM CURSOR ──────────────────────── */
+
+    #cursor {
+      position: fixed;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fff;
+      mix-blend-mode: difference;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    body.cursor-ready #cursor { opacity: 1; }
+    body.cursor-hover #cursor { width: 36px; height: 36px; }
+    @media (hover: none) { #cursor { display: none; } }
 
     /* ── NAVIGATION ─────────────────────────── */
 
@@ -138,15 +201,27 @@
       overflow: hidden;
     }
 
-    /* Atmospheric layered blobs — simulate organic 3D renders */
+    /* Atmospheric layered blobs — pointer-reactive via CSS vars */
     .hero-bg {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 90% 70% at 15% 85%, rgba(22, 60, 30, 0.65) 0%, transparent 50%),
-        radial-gradient(ellipse 70% 80% at 85% 15%, rgba(55, 38, 8, 0.55) 0%, transparent 48%),
+        radial-gradient(ellipse 90% 70% at calc(15% + var(--gx, 0%)) calc(85% + var(--gy, 0%)), rgba(22, 60, 30, 0.65) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 80% at calc(85% + var(--gx2, 0%)) calc(15% + var(--gy2, 0%)), rgba(55, 38, 8, 0.55) 0%, transparent 48%),
         radial-gradient(ellipse 60% 55% at 55% 65%, rgba(80, 22, 16, 0.3) 0%, transparent 45%),
         radial-gradient(ellipse 40% 40% at 40% 30%, rgba(10, 30, 18, 0.5) 0%, transparent 55%);
+    }
+
+    /* ── SCROLL REVEAL ──────────────────────── */
+
+    .will-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .will-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .hero-glow {
@@ -209,23 +284,31 @@
     .word-rotator {
       position: relative;
       display: inline-block;
+      overflow: hidden;
+      /* vertical padding creates the mask slot — word clips as it enters/exits */
+      padding: 0.08em 0.1em;
+      /* compensate for padding so surrounding lines don't shift */
+      margin: -0.08em -0.1em;
+      vertical-align: bottom;
     }
     .word-highlight {
       position: absolute;
-      top: -0.05em;
-      bottom: -0.05em;
-      left: -0.08em;
-      background: rgba(255, 255, 255, 0.09);
-      border-radius: 0.07em;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 0.06em;
       pointer-events: none;
-      transition: width 300ms ease-out;
+      transition: width 350ms cubic-bezier(0.4, 0, 0.2, 1);
       will-change: width;
     }
     .word-text {
       position: relative;
       display: inline-block;
-      will-change: opacity, transform;
-      transition: opacity 300ms ease-out, transform 300ms ease-out;
+      will-change: opacity, transform, filter;
+      transition: opacity 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                  filter 350ms cubic-bezier(0.4, 0, 0.2, 1);
     }
     .word-sizer {
       position: absolute;
@@ -236,7 +319,7 @@
       user-select: none;
     }
     @media (prefers-reduced-motion: reduce) {
-      .word-text    { transition: none !important; }
+      .word-text      { transition: none !important; }
       .word-highlight { transition: none !important; }
     }
 
@@ -1170,6 +1253,19 @@
 </head>
 <body>
 
+  <!-- ARRIVAL -->
+  <div id="arrival" aria-hidden="true" role="presentation">
+    <div class="arrival-inner">
+      <p class="arrival-line">The Brighter</p>
+      <p class="arrival-line">Marketing Agency</p>
+      <span class="arrival-dot">●</span>
+      <p class="arrival-city">Austin, Texas</p>
+    </div>
+  </div>
+
+  <!-- CURSOR -->
+  <div id="cursor" aria-hidden="true"></div>
+
   <!-- NAVIGATION -->
   <nav id="nav">
     <a href="#" class="nav-logo">the brighter marketing agency</a>
@@ -1325,7 +1421,7 @@
           <div class="service-item">
             <p class="service-num">03</p>
             <h3 class="service-title">CRM & Automation</h3>
-            <p class="service-desc">Full CRM setup, funnel builds, and automated nurture sequences — so your pipeline works while you sleep. Retainers starting at $250/month.</p>
+            <p class="service-desc">Full CRM setup, funnel builds, and automated nurture sequences — so your pipeline works while you sleep. Built inside your existing stack.</p>
           </div>
           <div class="service-item">
             <p class="service-num">04</p>
@@ -1460,7 +1556,7 @@
         </div>
         <div class="team-grid">
           <div class="team-card">
-            <img class="team-card-photo" src="images/ryan.jpg" alt="Ryan Robinson">
+            <img class="team-card-photo" loading="lazy" src="images/ryan.jpg" alt="Ryan Robinson">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Ryan Robinson</p>
@@ -1468,7 +1564,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" src="images/sage.jpg" alt="Sage Hollis">
+            <img class="team-card-photo" loading="lazy" src="images/sage.jpg" alt="Sage Hollis">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Sage Hollis</p>
@@ -1476,7 +1572,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" src="images/nova.jpg" alt="Nova Cross">
+            <img class="team-card-photo" loading="lazy" src="images/nova.jpg" alt="Nova Cross">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Nova Cross</p>
@@ -1484,7 +1580,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" src="images/atlas.jpg" alt="Atlas Vane">
+            <img class="team-card-photo" loading="lazy" src="images/atlas.jpg" alt="Atlas Vane">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Atlas Vane</p>
@@ -1492,7 +1588,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" src="images/echo.jpg" alt="Echo Marlowe">
+            <img class="team-card-photo" loading="lazy" src="images/echo.jpg" alt="Echo Marlowe">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Echo Marlowe</p>
@@ -1628,18 +1724,18 @@
   </div>
 
   <script>
-    // Scroll-aware navigation
+    // ── NAV ─────────────────────────────────
     const nav = document.getElementById('nav');
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 64);
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 64);
+    }, { passive: true });
 
-    // Cookie banner
+    // ── FORM ────────────────────────────────
     function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
-      const checked = form.querySelectorAll('input[name="services"]:checked');
-      if (checked.length === 0) {
-        alert('Please select at least one service you\'re interested in.');
+      if (!form.querySelectorAll('input[name="services"]:checked').length) {
+        alert('Please select at least one service.');
         return;
       }
       const btn = form.querySelector('.btn-submit');
@@ -1652,40 +1748,126 @@
       document.getElementById('cookieBanner').classList.add('hide');
     }
 
-    // Intersection observer — fade-in on scroll
-    const observer = new IntersectionObserver((entries) => {
+    // ── SCROLL REVEALS ──────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
+          e.target.classList.add('revealed');
+          revealObserver.unobserve(e.target); // fire once
         }
       });
     }, { threshold: 0.08 });
 
-    document.querySelectorAll(
+    const revealTargets = document.querySelectorAll(
       '.section-intro, .section-work, .section-services, .section-manifesto, .section-process, .section-team, .work-card, .service-item, .process-row, .stat-item'
-    ).forEach(el => {
-      el.style.cssText += 'opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease;';
-      observer.observe(el);
+    );
+    revealTargets.forEach(el => {
+      el.classList.add('will-reveal');
+      revealObserver.observe(el);
     });
 
-    // Rotating hero word
+    // ── ARRIVAL SEQUENCE ────────────────────
     (function () {
-      const WORDS    = ['Brands', 'Websites', 'Campaigns', 'Systems', 'Experiences'];
-      const HOLD     = 2000;
-      const DURATION = 300;
-      const SHIFT    = 14;
+      const overlay = document.getElementById('arrival');
+      if (!overlay) return;
 
-      const textEl   = document.querySelector('.word-text');
-      const hlEl     = document.querySelector('.word-highlight');
-      const sizerEl  = document.querySelector('.word-sizer');
+      if (sessionStorage.getItem('b_arrived')) {
+        overlay.remove();
+        return;
+      }
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        overlay.remove();
+        sessionStorage.setItem('b_arrived', '1');
+        return;
+      }
+
+      // Stagger elements in
+      const lines = overlay.querySelectorAll('.arrival-line');
+      const dot   = overlay.querySelector('.arrival-dot');
+      const city  = overlay.querySelector('.arrival-city');
+
+      requestAnimationFrame(() => {
+        lines[0].style.opacity   = '1';
+        lines[0].style.transform = 'translateY(0)';
+        setTimeout(() => {
+          lines[1].style.opacity   = '1';
+          lines[1].style.transform = 'translateY(0)';
+        }, 120);
+        setTimeout(() => { dot.style.opacity = '1'; }, 300);
+        setTimeout(() => {
+          city.style.opacity   = '1';
+          city.style.transform = 'translateY(0)';
+        }, 420);
+
+        // Fade out whole overlay
+        setTimeout(() => {
+          overlay.style.transition = 'opacity 0.8s ease';
+          overlay.style.opacity    = '0';
+          setTimeout(() => {
+            overlay.remove();
+            sessionStorage.setItem('b_arrived', '1');
+          }, 800);
+        }, 1500);
+      });
+    })();
+
+    // ── CUSTOM CURSOR ───────────────────────
+    (function () {
+      const cursor = document.getElementById('cursor');
+      if (!cursor || !window.matchMedia('(hover: hover)').matches) return;
+
+      document.body.classList.add('cursor-ready');
+      let cx = 0, cy = 0;
+
+      document.addEventListener('mousemove', e => {
+        cx = e.clientX;
+        cy = e.clientY;
+        cursor.style.left = cx + 'px';
+        cursor.style.top  = cy + 'px';
+      }, { passive: true });
+
+      document.querySelectorAll('a, button, .work-card, .team-card, .service-item, .nav-cta')
+        .forEach(el => {
+          el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+          el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+    })();
+
+    // ── POINTER-REACTIVE HERO GLOW ──────────
+    (function () {
+      const hero  = document.querySelector('.hero');
+      const heroBg = document.querySelector('.hero-bg');
+      if (!hero || !heroBg || !window.matchMedia('(hover: hover)').matches) return;
+
+      hero.addEventListener('mousemove', e => {
+        const r = hero.getBoundingClientRect();
+        const x = ((e.clientX - r.left)  / r.width  - 0.5) * 5; // ±2.5%
+        const y = ((e.clientY - r.top)   / r.height - 0.5) * 5;
+        heroBg.style.setProperty('--gx',  x.toFixed(2) + '%');
+        heroBg.style.setProperty('--gy',  y.toFixed(2) + '%');
+        heroBg.style.setProperty('--gx2', (-x * 0.7).toFixed(2) + '%');
+        heroBg.style.setProperty('--gy2', (-y * 0.7).toFixed(2) + '%');
+      }, { passive: true });
+    })();
+
+    // ── ROTATING HERO WORD ──────────────────
+    (function () {
+      const WORDS    = ['Brands', 'Websites', 'Campaigns', 'Systems'];
+      const HOLD     = 2500;
+      const DUR      = 380;
+      const SHIFT    = 22; // px — larger shift for masked slot effect
+
+      const textEl  = document.querySelector('.word-text');
+      const hlEl    = document.querySelector('.word-highlight');
+      const sizerEl = document.querySelector('.word-sizer');
       if (!textEl || !hlEl || !sizerEl) return;
 
-      let idx  = 0;
-      let busy = false;
+      let idx = 0, busy = false;
 
       function hPad() {
-        return parseFloat(getComputedStyle(textEl).fontSize) * 0.16;
+        // 0.2em on each side
+        return parseFloat(getComputedStyle(textEl).fontSize) * 0.2;
       }
 
       function setHL(word) {
@@ -1693,12 +1875,9 @@
         hlEl.style.width = (sizerEl.offsetWidth + hPad()) + 'px';
       }
 
-      // Initialise without transition flash
       hlEl.style.transition = 'none';
       setHL(WORDS[0]);
-      requestAnimationFrame(() => {
-        hlEl.style.transition = '';
-      });
+      requestAnimationFrame(() => { hlEl.style.transition = ''; });
 
       function rotate() {
         if (busy) return;
@@ -1711,34 +1890,35 @@
         if (reduced) {
           textEl.textContent = nextWord;
           setHL(nextWord);
-          idx  = next;
-          busy = false;
+          idx = next; busy = false;
           return;
         }
 
-        // Step 1 — fade current word up + animate highlight to new width
+        // Out: slide up + blur
         textEl.style.opacity   = '0';
         textEl.style.transform = `translateY(-${SHIFT}px)`;
-        setHL(nextWord);
+        textEl.style.filter    = 'blur(6px)';
+        setHL(nextWord); // highlight animates during exit
 
         setTimeout(() => {
-          // Step 2 — swap text while invisible, snap to entry position
+          // Snap to entry position (below, invisible, blurred)
           textEl.style.transition = 'none';
           textEl.textContent      = nextWord;
           textEl.style.transform  = `translateY(${SHIFT}px)`;
-          void textEl.offsetWidth; // force reflow
+          void textEl.offsetWidth;
 
-          // Step 3 — fade new word in from below
-          textEl.style.transition = `opacity ${DURATION}ms ease-out, transform ${DURATION}ms ease-out`;
+          // In: slide up + unblur
+          textEl.style.transition = `opacity ${DUR}ms cubic-bezier(0.4,0,0.2,1), transform ${DUR}ms cubic-bezier(0.4,0,0.2,1), filter ${DUR}ms cubic-bezier(0.4,0,0.2,1)`;
           textEl.style.opacity    = '1';
           textEl.style.transform  = 'translateY(0)';
+          textEl.style.filter     = 'blur(0px)';
 
-          idx  = next;
-          setTimeout(() => { busy = false; }, DURATION);
-        }, DURATION + 20);
+          idx = next;
+          setTimeout(() => { busy = false; }, DUR);
+        }, DUR + 20);
       }
 
-      setInterval(rotate, HOLD + DURATION + 20);
+      setInterval(rotate, HOLD + DUR + 20);
     })();
   </script>
 
