@@ -470,18 +470,71 @@
 
     .section-link:hover { opacity: 0.5; }
 
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+    /* ── WORK GALLERY (Phase 4) ──────────────── */
+    .work-pin-section {
+      background: var(--color-ink-black);
+    }
+
+    .work-gallery-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-top: 80px;
+      padding-bottom: 48px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .work-gallery-header .section-title { color: var(--color-paper-white); }
+
+    .work-gallery-count {
+      font-size: 11px;
+      color: var(--color-ash);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .work-track-wrap {
+      overflow: hidden;
+      padding-bottom: 80px;
+      padding-left: 80px;
+    }
+
+    .work-track {
+      display: flex;
+      gap: 3px;
+      width: max-content;
+      will-change: transform;
     }
 
     .work-card {
       position: relative;
-      aspect-ratio: 3/4;
+      width: 380px;
+      height: 520px;
       background: var(--color-ink-black);
       overflow: hidden;
       cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ── WORK PREVIEW (cursor follower) ─────── */
+    #work-preview {
+      position: fixed;
+      width: 260px;
+      height: 340px;
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
+      border-radius: 2px;
+      will-change: transform;
+    }
+    #work-preview.active { opacity: 1; }
+    .work-preview-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
     }
 
     .work-card-bg { position: absolute; inset: 0; transition: transform 0.6s ease; }
@@ -1230,7 +1283,8 @@
     @media (max-width: 900px) {
       nav { padding: 22px 32px; }
       .inner { padding: 0 32px; }
-      .work-grid { grid-template-columns: 1fr 1fr; }
+      .work-track-wrap { padding-left: 32px; }
+      .work-card { width: 300px; height: 420px; }
       .team-grid { grid-template-columns: repeat(3, 1fr); }
       .contact-grid { grid-template-columns: 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr; }
@@ -1244,7 +1298,8 @@
       .nav-right .nav-link { display: none; }
       .inner { padding: 0 24px; }
       .section-dark-break { padding: 80px 24px; }
-      .work-grid { grid-template-columns: 1fr; }
+      .work-track-wrap { padding-left: 24px; }
+      .work-card { width: 260px; height: 360px; }
       .team-grid { grid-template-columns: 1fr 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .stat-item:nth-child(odd) { padding-right: 24px; }
@@ -1331,57 +1386,57 @@
     </div>
   </div>
 
-  <!-- WORK GRID -->
-  <section class="section-light" id="work">
-    <div class="inner">
-      <div class="section-work">
-        <div class="section-header">
-          <h2 class="section-title">Selected Work</h2>
-          <a href="#" class="section-link">View All</a>
-        </div>
-        <div class="work-grid">
-          <div class="work-card">
-            <div class="work-card-bg" style="background-image: url('images/nirvana.jpg'); background-size: cover; background-position: center;"></div>
+  <!-- WORK GALLERY -->
+  <section class="work-pin-section" id="work">
+    <div class="work-pin-inner">
+      <div class="inner work-gallery-header">
+        <h2 class="section-title">Selected Work</h2>
+        <span class="work-gallery-count">06 Projects</span>
+      </div>
+      <div class="work-track-wrap">
+        <div class="work-track">
+          <div class="work-card" data-img="images/nirvana.jpg">
+            <div class="work-card-bg" style="background-image:url('images/nirvana.jpg');background-size:cover;background-position:center"></div>
             <span class="work-tag">Brand Identity</span>
             <div class="work-card-overlay">
               <p class="work-year">2025</p>
               <h3 class="work-title">Nirvana Bar & Lounge — Full Brand Launch</h3>
             </div>
           </div>
-          <div class="work-card">
-            <div class="work-card-bg" style="background-image: url('images/robinsun.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="work-card" data-img="images/robinsun.jpg">
+            <div class="work-card-bg" style="background-image:url('images/robinsun.jpg');background-size:cover;background-position:center"></div>
             <span class="work-tag">CRM & Automation</span>
             <div class="work-card-overlay">
               <p class="work-year">2024</p>
               <h3 class="work-title">Robin Sun Roofing — Lead Pipeline Automation</h3>
             </div>
           </div>
-          <div class="work-card">
-            <div class="work-card-bg" style="background-image: url('images/drainkings.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="work-card" data-img="images/drainkings.jpg">
+            <div class="work-card-bg" style="background-image:url('images/drainkings.jpg');background-size:cover;background-position:center"></div>
             <span class="work-tag">Digital Marketing</span>
             <div class="work-card-overlay">
               <p class="work-year">2023</p>
               <h3 class="work-title">Drain Kings Plumbing — SEO & Ad Campaign</h3>
             </div>
           </div>
-          <div class="work-card">
-            <div class="work-card-bg" style="background-image: url('images/sohome.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="work-card" data-img="images/sohome.jpg">
+            <div class="work-card-bg" style="background-image:url('images/sohome.jpg');background-size:cover;background-position:center"></div>
             <span class="work-tag">Performance Marketing</span>
             <div class="work-card-overlay">
               <p class="work-year">2022</p>
               <h3 class="work-title">SoHome Solar — Facebook, SEO & Google Ads</h3>
             </div>
           </div>
-          <div class="work-card">
-            <div class="work-card-bg" style="background-image: url('images/bodega.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="work-card" data-img="images/bodega.jpg">
+            <div class="work-card-bg" style="background-image:url('images/bodega.jpg');background-size:cover;background-position:center"></div>
             <span class="work-tag">Brand & Content</span>
             <div class="work-card-overlay">
               <p class="work-year">2020</p>
               <h3 class="work-title">The Bodega at Hi Line — Photography & Brand</h3>
             </div>
           </div>
-          <div class="work-card">
-            <div class="work-card-bg" style="background-image: url('images/zoiedawn.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="work-card" data-img="images/zoiedawn.jpg">
+            <div class="work-card-bg" style="background-image:url('images/zoiedawn.jpg');background-size:cover;background-position:center"></div>
             <span class="work-tag">Brand Strategy</span>
             <div class="work-card-overlay">
               <p class="work-year">2022</p>
@@ -1392,6 +1447,11 @@
       </div>
     </div>
   </section>
+
+  <!-- WORK PREVIEW (cursor follower) -->
+  <div id="work-preview" aria-hidden="true">
+    <div class="work-preview-img"></div>
+  </div>
 
   <!-- DARK QUOTE BREAK -->
   <section class="section-dark-break">
@@ -1764,7 +1824,7 @@
     }, { threshold: 0.08 });
 
     const revealTargets = document.querySelectorAll(
-      '.section-intro, .section-work, .section-services, .section-team, .work-card, .service-item'
+      '.section-intro, .section-services, .section-team, .service-item'
     );
     revealTargets.forEach(el => {
       el.classList.add('will-reveal');
@@ -1987,6 +2047,45 @@
         });
       }
     });
+
+    // ── WORK HORIZONTAL SCROLL ───────────────
+    const workTrack = document.querySelector('.work-track');
+    if (workTrack && window.innerWidth > 768) {
+      gsap.to(workTrack, {
+        x: () => -(workTrack.scrollWidth - document.documentElement.clientWidth + 80),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.work-pin-section',
+          pin: true,
+          anticipatePin: 1,
+          start: 'top top+=80',
+          end: () => `+=${workTrack.scrollWidth - document.documentElement.clientWidth + 80}`,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      // Cursor-follow image preview
+      const workPreview = document.getElementById('work-preview');
+      const previewImg = workPreview && workPreview.querySelector('.work-preview-img');
+      if (workPreview && previewImg) {
+        const workSection = document.querySelector('.work-pin-section');
+        workSection.addEventListener('mousemove', e => {
+          workPreview.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
+        }, { passive: true });
+
+        document.querySelectorAll('.work-card').forEach(card => {
+          card.addEventListener('mouseenter', () => {
+            const img = card.dataset.img;
+            if (img) previewImg.style.backgroundImage = `url('${img}')`;
+            workPreview.classList.add('active');
+          });
+          card.addEventListener('mouseleave', () => {
+            workPreview.classList.remove('active');
+          });
+        });
+      }
+    }
 
     // ── STATS COUNTER ─────────────────────────
     document.querySelectorAll('.stat-item').forEach(item => {
