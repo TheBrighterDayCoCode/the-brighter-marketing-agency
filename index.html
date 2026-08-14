@@ -2421,24 +2421,20 @@
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ── MANIFESTO PINNED REVEAL ───────────────
+    // ── MANIFESTO SCRUB REVEAL ───────────────
     if (!reducedMotion) {
-      gsap.fromTo('.m-phrase',
-        { opacity: 0.12 },
-        {
-          opacity: 1,
-          stagger: 0.5,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.section-manifesto',
-            pin: true,
-            anticipatePin: 1,
-            start: 'top top+=80',
-            end: '+=640',
-            scrub: 1.2,
-          }
+      gsap.set('.m-phrase', { opacity: 0 });
+      gsap.to('.m-phrase', {
+        opacity: 1,
+        stagger: 0.4,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.section-manifesto',
+          start: 'top 55%',
+          end: 'bottom 15%',
+          scrub: 1.2,
         }
-      );
+      });
     } else {
       document.querySelectorAll('.m-phrase').forEach(el => { el.style.opacity = '1'; });
     }
