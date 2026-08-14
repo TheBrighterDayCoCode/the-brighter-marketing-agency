@@ -206,6 +206,40 @@
       letter-spacing: -0.02em;
     }
 
+    .word-rotator {
+      position: relative;
+      display: inline-block;
+    }
+    .word-highlight {
+      position: absolute;
+      top: -0.05em;
+      bottom: -0.05em;
+      left: -0.08em;
+      background: rgba(255, 255, 255, 0.09);
+      border-radius: 0.07em;
+      pointer-events: none;
+      transition: width 300ms ease-out;
+      will-change: width;
+    }
+    .word-text {
+      position: relative;
+      display: inline-block;
+      will-change: opacity, transform;
+      transition: opacity 300ms ease-out, transform 300ms ease-out;
+    }
+    .word-sizer {
+      position: absolute;
+      top: 0; left: 0;
+      visibility: hidden;
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .word-text    { transition: none !important; }
+      .word-highlight { transition: none !important; }
+    }
+
     .scroll-indicator {
       position: absolute;
       bottom: 48px;
@@ -1156,7 +1190,7 @@
     <div class="hero-glow hero-glow-3"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Marketing Agency — Est. 2020</p>
-      <h1 class="hero-title">We Build<br>Brands<br>That Move.</h1>
+      <h1 class="hero-title">We Build<br><span class="word-rotator" aria-live="polite" aria-atomic="true"><span class="word-highlight" aria-hidden="true"></span><span class="word-text">Brands</span><span class="word-sizer" aria-hidden="true">Brands</span></span><br>That Move.</h1>
     </div>
     <div class="scroll-indicator">
       <div class="scroll-line"></div>
@@ -1634,6 +1668,78 @@
       el.style.cssText += 'opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease;';
       observer.observe(el);
     });
+
+    // Rotating hero word
+    (function () {
+      const WORDS    = ['Brands', 'Websites', 'Campaigns', 'Systems', 'Experiences'];
+      const HOLD     = 2000;
+      const DURATION = 300;
+      const SHIFT    = 14;
+
+      const textEl   = document.querySelector('.word-text');
+      const hlEl     = document.querySelector('.word-highlight');
+      const sizerEl  = document.querySelector('.word-sizer');
+      if (!textEl || !hlEl || !sizerEl) return;
+
+      let idx  = 0;
+      let busy = false;
+
+      function hPad() {
+        return parseFloat(getComputedStyle(textEl).fontSize) * 0.16;
+      }
+
+      function setHL(word) {
+        sizerEl.textContent = word;
+        hlEl.style.width = (sizerEl.offsetWidth + hPad()) + 'px';
+      }
+
+      // Initialise without transition flash
+      hlEl.style.transition = 'none';
+      setHL(WORDS[0]);
+      requestAnimationFrame(() => {
+        hlEl.style.transition = '';
+      });
+
+      function rotate() {
+        if (busy) return;
+        busy = true;
+
+        const next     = (idx + 1) % WORDS.length;
+        const nextWord = WORDS[next];
+        const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (reduced) {
+          textEl.textContent = nextWord;
+          setHL(nextWord);
+          idx  = next;
+          busy = false;
+          return;
+        }
+
+        // Step 1 — fade current word up + animate highlight to new width
+        textEl.style.opacity   = '0';
+        textEl.style.transform = `translateY(-${SHIFT}px)`;
+        setHL(nextWord);
+
+        setTimeout(() => {
+          // Step 2 — swap text while invisible, snap to entry position
+          textEl.style.transition = 'none';
+          textEl.textContent      = nextWord;
+          textEl.style.transform  = `translateY(${SHIFT}px)`;
+          void textEl.offsetWidth; // force reflow
+
+          // Step 3 — fade new word in from below
+          textEl.style.transition = `opacity ${DURATION}ms ease-out, transform ${DURATION}ms ease-out`;
+          textEl.style.opacity    = '1';
+          textEl.style.transform  = 'translateY(0)';
+
+          idx  = next;
+          setTimeout(() => { busy = false; }, DURATION);
+        }, DURATION + 20);
+      }
+
+      setInterval(rotate, HOLD + DURATION + 20);
+    })();
   </script>
 
 </body>
