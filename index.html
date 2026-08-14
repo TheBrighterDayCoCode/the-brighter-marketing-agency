@@ -157,6 +157,77 @@
     .nav-link:hover { opacity: 0.5; }
     nav.scrolled .nav-link { color: var(--color-carbon); }
 
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger-line {
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+      color: var(--color-paper-white);
+      display: block;
+      transition: transform 0.3s ease, opacity 0.2s;
+    }
+    nav.scrolled .nav-hamburger { color: var(--color-carbon); }
+
+    /* ── NAV OVERLAY ────────────────────────── */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--color-ink-black);
+      z-index: 9000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 48px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .nav-overlay-close {
+      position: absolute;
+      top: 28px; right: 32px;
+      font-size: 32px;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .nav-overlay-close:hover { color: var(--color-paper-white); }
+
+    .nav-overlay-link {
+      font-size: clamp(40px, 9vw, 80px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.14);
+      text-decoration: none;
+      display: block;
+      line-height: 1.2;
+      transition: color 0.2s;
+    }
+    .nav-overlay-link:hover { color: var(--color-paper-white); }
+
+    .nav-overlay-cta {
+      margin-top: 40px;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      transition: color 0.2s;
+    }
+    .nav-overlay-cta:hover { color: var(--color-paper-white); }
+
     .nav-cta {
       font-size: 11px;
       font-weight: 400;
@@ -968,42 +1039,192 @@
       padding: 120px 0;
     }
 
-    .intake-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
+    /* ── FORM WIZARD (Phase 6) ──────────────── */
+    .wizard-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 72px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      padding-top: 40px;
     }
 
-    .intake-left .label { margin-bottom: 32px; }
+    .wizard-header .label { margin: 0; white-space: nowrap; }
 
-    .intake-headline {
-      font-size: clamp(40px, 5vw, 78px);
+    .progress-bar {
+      flex: 1;
+      height: 1px;
+      background: rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .progress-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--color-carbon);
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    .step-counter {
+      font-size: 10px;
+      color: var(--color-ash);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .form-wizard { max-width: 800px; }
+
+    .form-step { display: none; }
+    .form-step.active {
+      display: block;
+      animation: stepIn 0.4s ease;
+    }
+
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateX(16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .step-question {
+      font-size: clamp(32px, 4vw, 58px);
       font-weight: 300;
       color: var(--color-carbon);
       line-height: 1.15;
-      margin-bottom: 24px;
+      margin-bottom: 40px;
     }
 
-    .intake-sub {
-      font-size: 16px;
+    .step-label {
+      font-size: 11px;
       font-weight: 400;
       color: var(--color-ash);
-      line-height: 1.7;
-      max-width: 420px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 16px;
     }
 
-    .intake-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+    .step-hint {
+      font-size: 12px;
+      color: var(--color-ash);
+      margin-top: -24px;
+      margin-bottom: 40px;
     }
 
-    .form-row {
+    .option-cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0 2px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
     }
+
+    .option-card {
+      border: 1px solid rgba(0,0,0,0.1);
+      padding: 28px 22px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      border-radius: 4px;
+      user-select: none;
+    }
+
+    .option-card:hover { border-color: rgba(0,0,0,0.4); }
+    .option-card.selected { border-color: var(--color-carbon); background: rgba(0,0,0,0.03); }
+
+    .option-card-num {
+      font-size: 11px;
+      color: var(--color-ash);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .option-card-label {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--color-carbon);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .option-card-sub {
+      font-size: 12px;
+      color: var(--color-ash);
+      line-height: 1.4;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .option-pill {
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 10px 22px;
+      cursor: pointer;
+      border-radius: 60px;
+      font-size: 13px;
+      color: var(--color-carbon);
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      user-select: none;
+    }
+
+    .option-pill:hover { border-color: var(--color-carbon); }
+    .option-pill.selected { background: var(--color-carbon); color: var(--color-paper-white); border-color: var(--color-carbon); }
+
+    .wizard-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .wizard-back {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-ash);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font-roobert);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .wizard-back.visible { opacity: 1; pointer-events: auto; }
+    .wizard-back:hover { color: var(--color-carbon); }
+
+    .wizard-next {
+      font-family: var(--font-roobert);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-paper-white);
+      background: var(--color-carbon);
+      border: none;
+      border-radius: var(--radius-buttons);
+      padding: 14px 36px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .wizard-next:hover { opacity: 0.75; }
+
+    .wizard-success {
+      padding: 40px 0;
+    }
+    .wizard-success h2 {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 300;
+      color: var(--color-carbon);
+      margin: 24px 0 16px;
+    }
+    .wizard-success p { font-size: 16px; color: var(--color-ash); }
 
     .form-field {
       display: flex;
@@ -1058,62 +1279,6 @@
       color: var(--color-smoke);
     }
 
-    .form-check-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-bottom: 20px;
-    }
-
-    .form-check-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--color-carbon);
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    .form-check-label input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
-      border: 1px solid rgba(0,0,0,0.25);
-      border-radius: 0;
-      background: transparent;
-      flex-shrink: 0;
-      cursor: pointer;
-      padding: 0;
-      margin: 0;
-      -webkit-appearance: checkbox;
-      appearance: checkbox;
-    }
-
-    .urgency-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-bottom: 20px;
-    }
-
-    .urgency-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      color: var(--color-carbon);
-      cursor: pointer;
-    }
-
-    .urgency-option input[type="radio"] {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      cursor: pointer;
-      padding: 0;
-      margin: 0;
-    }
 
     .form-submit {
       margin-top: 40px;
@@ -1145,9 +1310,8 @@
       line-height: 1.5;
     }
 
-    @media (max-width: 1024px) {
-      .intake-inner { grid-template-columns: 1fr; gap: 48px; }
-      .form-row { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .option-cards { grid-template-columns: 1fr; }
     }
 
     /* ── CONTACT / FOOTER ───────────────────── */
@@ -1212,11 +1376,42 @@
     .contact-value:hover { opacity: 0.55; }
 
     .footer-bar {
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .footer-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 40px;
-      border-top: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 28px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.2);
+      font-weight: 300;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-social-link {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-social-link:hover { color: rgba(255,255,255,0.65); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .footer-logo {
@@ -1344,6 +1539,7 @@
     @media (max-width: 640px) {
       nav { padding: 20px 24px; }
       .nav-right .nav-link { display: none; }
+      .nav-hamburger { display: flex; }
       .inner { padding: 0 24px; }
       .section-dark-break { padding: 80px 24px; }
       .work-track-wrap { padding-left: 24px; }
@@ -1353,7 +1549,8 @@
       .stat-item:nth-child(odd) { padding-right: 24px; }
       .stat-item:nth-child(even) { padding-left: 24px; }
       .contact-grid { grid-template-columns: 1fr; }
-      .footer-bar { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-top { flex-direction: column; gap: 12px; text-align: center; }
       .process-row { grid-template-columns: 48px 1fr; }
       .process-tags { display: none; }
     }
@@ -1383,8 +1580,23 @@
       <a href="#about" class="nav-link">About</a>
       <a href="#team" class="nav-link">Team</a>
       <a href="#start" class="nav-cta">Start a Project</a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+        <span class="nav-hamburger-line"></span>
+        <span class="nav-hamburger-line"></span>
+        <span class="nav-hamburger-line"></span>
+      </button>
     </div>
   </nav>
+
+  <!-- NAV OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true">
+    <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Close menu">×</button>
+    <a href="#work" class="nav-overlay-link">Work</a>
+    <a href="#services" class="nav-overlay-link">Services</a>
+    <a href="#about" class="nav-overlay-link">About</a>
+    <a href="#team" class="nav-overlay-link">Team</a>
+    <a href="#start" class="nav-overlay-cta">Start a Project →</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -1739,79 +1951,106 @@
   <!-- INTAKE FORM -->
   <section class="section-light section-intake" id="start">
     <div class="inner">
-      <div class="intake-inner">
-        <div class="intake-left">
-          <p class="label">— Start a Project</p>
-          <h2 class="intake-headline">Tell us about your brand.</h2>
-          <p class="intake-sub">Fill out the form and we'll be in touch within 24 hours to schedule a discovery call. No commitment, no pitch decks — just a real conversation.</p>
+      <div class="wizard-header">
+        <p class="label">— Start a Project</p>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <span class="step-counter" id="step-counter">01 — 04</span>
+      </div>
+      <div class="form-wizard" id="form-wizard">
+
+        <!-- STEP 1: What are you building? -->
+        <div class="form-step active" id="step-1">
+          <h2 class="step-question">What are you looking to build?</h2>
+          <div class="option-cards">
+            <div class="option-card" data-value="brand">
+              <div class="option-card-num">01</div>
+              <div class="option-card-label">Brand & Identity</div>
+              <div class="option-card-sub">Strategy, websites, visual identity</div>
+            </div>
+            <div class="option-card" data-value="marketing">
+              <div class="option-card-num">02</div>
+              <div class="option-card-label">Marketing & Growth</div>
+              <div class="option-card-sub">SEO, ads, social, content</div>
+            </div>
+            <div class="option-card" data-value="systems">
+              <div class="option-card-num">03</div>
+              <div class="option-card-label">Systems & Automation</div>
+              <div class="option-card-sub">CRM, email/SMS, pipeline</div>
+            </div>
+          </div>
+          <p class="step-hint">Select all that apply.</p>
+          <div class="wizard-nav">
+            <button class="wizard-back" id="wizard-back-1">← Back</button>
+            <button class="wizard-next" id="wizard-next-1">Continue</button>
+          </div>
         </div>
-        <form class="intake-form" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-field">
-              <label>Full Name *</label>
-              <input type="text" name="name" placeholder="Your name" required>
-            </div>
-            <div class="form-field">
-              <label>Email Address *</label>
-              <input type="email" name="email" placeholder="you@company.com" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label>Phone Number *</label>
-              <input type="tel" name="phone" placeholder="+1 (555) 000-0000" required>
-            </div>
-            <div class="form-field">
-              <label>Company / Brand *</label>
-              <input type="text" name="company" placeholder="Brand name" required>
-            </div>
+
+        <!-- STEP 2: Tell us about your brand -->
+        <div class="form-step" id="step-2">
+          <h2 class="step-question">Tell us about your brand.</h2>
+          <div class="form-field">
+            <label>Company / Brand Name *</label>
+            <input type="text" id="brand-name" placeholder="e.g. Robin Sun Roofing">
           </div>
           <div class="form-field">
-            <label>Website (optional)</label>
-            <input type="url" name="website" placeholder="https://yoursite.com">
+            <label>Current Website (optional)</label>
+            <input type="url" id="current-site" placeholder="https://yoursite.com">
           </div>
           <div class="form-field">
-            <label>Services You're Interested In *</label>
-            <div class="form-check-group">
-              <label class="form-check-label"><input type="checkbox" name="services" value="brand-strategy"> Brand Strategy & Identity (websites)</label>
-              <label class="form-check-label"><input type="checkbox" name="services" value="digital-marketing"> Digital Marketing & SEO</label>
-              <label class="form-check-label"><input type="checkbox" name="services" value="crm-automation"> CRM & Automation</label>
-              <label class="form-check-label"><input type="checkbox" name="services" value="social-media"> Social Media Management</label>
-              <label class="form-check-label"><input type="checkbox" name="services" value="email-sms"> Email & SMS Nurturing</label>
-              <label class="form-check-label"><input type="checkbox" name="services" value="content"> Content Strategy & Production</label>
-            </div>
+            <label>What's the main challenge you're facing?</label>
+            <textarea id="challenge" placeholder="e.g. Not generating enough leads, need a CRM, brand refresh..." rows="3"></textarea>
           </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label>Monthly Budget *</label>
-              <select name="budget" required>
-                <option value="" disabled selected>Select a range</option>
-                <option value="250-500">$250 – $500 / month</option>
-                <option value="500-1000">$500 – $1,000 / month</option>
-                <option value="1000-2500">$1,000 – $2,500 / month</option>
-                <option value="2500-5000">$2,500 – $5,000 / month</option>
-                <option value="5000+">$5,000+ / month</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label>How Urgent Is This? *</label>
-              <div class="urgency-options">
-                <label class="urgency-option"><input type="radio" name="urgency" value="asap" required> Ready to start ASAP</label>
-                <label class="urgency-option"><input type="radio" name="urgency" value="30days"> Within 30 days</label>
-                <label class="urgency-option"><input type="radio" name="urgency" value="60-90days"> Within 60–90 days</label>
-                <label class="urgency-option"><input type="radio" name="urgency" value="exploring"> Just exploring for now</label>
-              </div>
-            </div>
+          <div class="wizard-nav">
+            <button class="wizard-back visible" id="wizard-back-2">← Back</button>
+            <button class="wizard-next" id="wizard-next-2">Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Investment & timeline -->
+        <div class="form-step" id="step-3">
+          <h2 class="step-question">Investment & timeline.</h2>
+          <p class="step-label">Monthly budget</p>
+          <div class="pill-group" id="budget-pills">
+            <span class="option-pill" data-group="budget">Under $500</span>
+            <span class="option-pill" data-group="budget">$500 – $1k</span>
+            <span class="option-pill" data-group="budget">$1k – $2.5k</span>
+            <span class="option-pill" data-group="budget">$2.5k – $5k</span>
+            <span class="option-pill" data-group="budget">$5k+</span>
+          </div>
+          <p class="step-label" style="margin-top:36px">When do you want to start?</p>
+          <div class="pill-group" id="timeline-pills">
+            <span class="option-pill" data-group="timeline">Ready now</span>
+            <span class="option-pill" data-group="timeline">Within 30 days</span>
+            <span class="option-pill" data-group="timeline">60–90 days</span>
+            <span class="option-pill" data-group="timeline">Just exploring</span>
+          </div>
+          <div class="wizard-nav">
+            <button class="wizard-back visible" id="wizard-back-3">← Back</button>
+            <button class="wizard-next" id="wizard-next-3">Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Contact -->
+        <div class="form-step" id="step-4">
+          <h2 class="step-question">Last step — let's connect.</h2>
+          <div class="form-field">
+            <label>Full Name *</label>
+            <input type="text" id="contact-name" placeholder="Your name">
           </div>
           <div class="form-field">
-            <label>Tell Us About Your Project *</label>
-            <textarea name="message" placeholder="What are you working on? What's the goal?" rows="4" required></textarea>
+            <label>Email Address *</label>
+            <input type="email" id="contact-email" placeholder="you@company.com">
           </div>
-          <div class="form-submit">
-            <button type="submit" class="btn-submit">Submit Inquiry</button>
-            <p class="form-note">We respond within 24 hours.<br>No spam, ever.</p>
+          <div class="form-field">
+            <label>Phone (optional)</label>
+            <input type="tel" id="contact-phone" placeholder="+1 (555) 000-0000">
           </div>
-        </form>
+          <div class="wizard-nav">
+            <button class="wizard-back visible" id="wizard-back-4">← Back</button>
+            <button class="wizard-next" id="wizard-submit">Send Inquiry →</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1838,13 +2077,21 @@
           </div>
         </div>
         <div class="footer-bar">
-          <a href="#" class="footer-logo">the brighter marketing agency</a>
-          <ul class="footer-links">
-            <li><a href="#" class="footer-link">Privacy Policy</a></li>
-            <li><a href="#" class="footer-link">Terms of Use</a></li>
-            <li><a href="#" class="footer-link">Careers</a></li>
-          </ul>
-          <span class="footer-copy">© 2026 The Brighter Marketing Agency. All rights reserved.</span>
+          <div class="footer-top">
+            <p class="footer-tagline">Built in Austin, Texas.</p>
+            <div class="footer-social">
+              <a href="https://instagram.com" class="footer-social-link" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://linkedin.com" class="footer-social-link" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <a href="#" class="footer-logo">the brighter marketing agency</a>
+            <ul class="footer-links">
+              <li><a href="#" class="footer-link">Privacy</a></li>
+              <li><a href="#" class="footer-link">Terms</a></li>
+            </ul>
+            <span class="footer-copy">© 2026 TBMA</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1866,19 +2113,107 @@
       nav.classList.toggle('scrolled', window.scrollY > 64);
     }, { passive: true });
 
-    // ── FORM ────────────────────────────────
-    function handleSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      if (!form.querySelectorAll('input[name="services"]:checked').length) {
-        alert('Please select at least one service.');
+    // ── FORM WIZARD ──────────────────────────
+    let wizardStep = 1;
+    const TOTAL = 4;
+
+    function showStep(n) {
+      document.querySelectorAll('.form-step').forEach((s, i) => {
+        s.classList.toggle('active', i + 1 === n);
+      });
+      document.getElementById('progress-fill').style.width = ((n - 1) / TOTAL * 100) + '%';
+      document.getElementById('step-counter').textContent = `0${n} — 0${TOTAL}`;
+    }
+
+    function wizardBack() {
+      if (wizardStep > 1) { wizardStep--; showStep(wizardStep); }
+    }
+
+    function wizardNext() {
+      if (wizardStep === 1) {
+        if (!document.querySelector('.option-card.selected')) {
+          document.querySelector('.step-hint').style.color = 'red';
+          return;
+        }
+      }
+      if (wizardStep === 2) {
+        const nm = document.getElementById('brand-name').value.trim();
+        if (!nm) { document.getElementById('brand-name').focus(); return; }
+      }
+      if (wizardStep === 3) {
+        const b = document.querySelector('#budget-pills .option-pill.selected');
+        const t = document.querySelector('#timeline-pills .option-pill.selected');
+        if (!b || !t) return;
+      }
+      if (wizardStep < TOTAL) { wizardStep++; showStep(wizardStep); }
+    }
+
+    function wizardSubmit() {
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      if (!name || !email) {
+        if (!name) document.getElementById('contact-name').focus();
+        else document.getElementById('contact-email').focus();
         return;
       }
-      const btn = form.querySelector('.btn-submit');
-      btn.textContent = 'Sent — We\'ll be in touch.';
-      btn.style.opacity = '0.5';
-      btn.disabled = true;
+      const first = name.split(' ')[0];
+      document.getElementById('form-wizard').innerHTML = `
+        <div class="wizard-success">
+          <p class="label">— Received</p>
+          <h2>We'll be in touch within 24 hours.</h2>
+          <p>Thanks ${first}. No pitch decks — just a real conversation.</p>
+        </div>`;
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('step-counter').textContent = '04 — 04';
     }
+
+    // Wire back/next buttons
+    document.getElementById('wizard-back-1').addEventListener('click', wizardBack);
+    document.getElementById('wizard-next-1').addEventListener('click', wizardNext);
+    document.getElementById('wizard-back-2').addEventListener('click', wizardBack);
+    document.getElementById('wizard-next-2').addEventListener('click', wizardNext);
+    document.getElementById('wizard-back-3').addEventListener('click', wizardBack);
+    document.getElementById('wizard-next-3').addEventListener('click', wizardNext);
+    document.getElementById('wizard-back-4').addEventListener('click', wizardBack);
+    document.getElementById('wizard-submit').addEventListener('click', wizardSubmit);
+
+    // Option card toggle
+    document.querySelectorAll('.option-card').forEach(card => {
+      card.addEventListener('click', () => card.classList.toggle('selected'));
+    });
+
+    // Budget pills (exclusive)
+    document.querySelectorAll('#budget-pills .option-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('#budget-pills .option-pill').forEach(p => p.classList.remove('selected'));
+        pill.classList.add('selected');
+      });
+    });
+
+    // Timeline pills (exclusive)
+    document.querySelectorAll('#timeline-pills .option-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('#timeline-pills .option-pill').forEach(p => p.classList.remove('selected'));
+        pill.classList.add('selected');
+      });
+    });
+
+    // ── HAMBURGER NAV ───────────────────────
+    const navOverlay = document.getElementById('nav-overlay');
+    document.getElementById('nav-hamburger').addEventListener('click', () => {
+      navOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('nav-overlay-close').addEventListener('click', () => {
+      navOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+    navOverlay.querySelectorAll('.nav-overlay-link, .nav-overlay-cta').forEach(link => {
+      link.addEventListener('click', () => {
+        navOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
 
     function closeCookie() {
       document.getElementById('cookieBanner').classList.add('hide');
