@@ -678,47 +678,77 @@
 
     /* ── SERVICES ───────────────────────────── */
 
+    /* ── CAPABILITY LIST (Phase 5) ──────────── */
     .section-services {
       padding: 120px 0;
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      margin-top: 72px;
+    .cap-list {
+      margin-top: 64px;
     }
 
-    .service-item {
+    .cap-row {
       border-top: 1px solid rgba(0,0,0,0.09);
-      padding: 40px 0;
+      cursor: pointer;
+      transition: opacity 0.25s ease;
     }
 
-    .service-item:nth-child(odd) { padding-right: 80px; }
-    .service-item:nth-child(even) { padding-left: 80px; border-left: 1px solid rgba(0,0,0,0.09); }
+    .cap-row:last-child { border-bottom: 1px solid rgba(0,0,0,0.09); }
 
-    .service-num {
+    .cap-list:hover .cap-row { opacity: 0.4; }
+    .cap-list:hover .cap-row:hover,
+    .cap-list .cap-row.active { opacity: 1; }
+
+    .cap-row-head {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 28px 0;
+    }
+
+    .cap-num {
       font-size: 11px;
       font-weight: 400;
       color: var(--color-ash);
       letter-spacing: 0.1em;
-      margin-bottom: 20px;
+      width: 36px;
+      flex-shrink: 0;
     }
 
-    .service-title {
-      font-size: clamp(26px, 3vw, 42px);
+    .cap-title {
+      font-size: clamp(26px, 3.2vw, 50px);
       font-weight: 300;
       color: var(--color-carbon);
-      line-height: 1.2;
-      margin-bottom: 20px;
+      line-height: 1.1;
+      flex: 1;
     }
 
-    .service-desc {
+    .cap-plus {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--color-ash);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .cap-row.active .cap-plus,
+    .cap-row:hover .cap-plus { transform: rotate(45deg); color: var(--color-carbon); }
+
+    .cap-desc {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding-bottom 0.3s ease;
       font-size: 16px;
       font-weight: 400;
       color: var(--color-ash);
-      line-height: 1.65;
+      line-height: 1.7;
+      padding-left: 64px;
+      padding-right: 80px;
+      padding-bottom: 0;
     }
+
+    .cap-row.active .cap-desc { max-height: 160px; padding-bottom: 32px; }
 
     /* ── STATS ──────────────────────────────── */
 
@@ -886,7 +916,10 @@
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center top;
+      filter: grayscale(100%);
+      transition: filter 0.55s ease;
     }
+    .team-card:hover .team-card-photo { filter: grayscale(0%); }
     .team-card-photo-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.82) 100%);
@@ -911,6 +944,21 @@
       color: rgba(255,255,255,0.38);
       text-transform: uppercase;
       letter-spacing: 0.14em;
+    }
+
+    .team-specialty {
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,0);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      transform: translateY(6px);
+      transition: color 0.3s ease 0.08s, transform 0.3s ease 0.08s;
+      margin-top: 10px;
+    }
+    .team-card:hover .team-specialty {
+      color: rgba(255,255,255,0.5);
+      transform: translateY(0);
     }
 
     /* ── INTAKE FORM ────────────────────────── */
@@ -1472,36 +1520,54 @@
       <div class="section-services">
         <p class="label">— Our Capabilities</p>
         <h2 class="section-title">What We Offer</h2>
-        <div class="services-grid">
-          <div class="service-item">
-            <p class="service-num">01</p>
-            <h3 class="service-title">Brand Strategy & Identity</h3>
-            <p class="service-desc">Positioning, messaging, visual identity, and website design built around a clear point of view. We craft brands that command attention and earn loyalty — not just clicks.</p>
+        <div class="cap-list">
+          <div class="cap-row">
+            <div class="cap-row-head">
+              <span class="cap-num">01</span>
+              <h3 class="cap-title">Brand Strategy & Identity</h3>
+              <span class="cap-plus">+</span>
+            </div>
+            <p class="cap-desc">Positioning, messaging, visual identity, and website design built around a clear point of view. We craft brands that command attention and earn loyalty — not just clicks.</p>
           </div>
-          <div class="service-item">
-            <p class="service-num">02</p>
-            <h3 class="service-title">Digital Marketing & SEO</h3>
-            <p class="service-desc">Paid and organic campaigns across search, social, and display — built to perform, optimized to scale, and designed to generate real pipeline.</p>
+          <div class="cap-row">
+            <div class="cap-row-head">
+              <span class="cap-num">02</span>
+              <h3 class="cap-title">Digital Marketing & SEO</h3>
+              <span class="cap-plus">+</span>
+            </div>
+            <p class="cap-desc">Paid and organic campaigns across search, social, and display — built to perform, optimized to scale, and designed to generate real pipeline.</p>
           </div>
-          <div class="service-item">
-            <p class="service-num">03</p>
-            <h3 class="service-title">CRM & Automation</h3>
-            <p class="service-desc">Full CRM setup, funnel builds, and automated nurture sequences — so your pipeline works while you sleep. Built inside your existing stack.</p>
+          <div class="cap-row">
+            <div class="cap-row-head">
+              <span class="cap-num">03</span>
+              <h3 class="cap-title">CRM & Automation</h3>
+              <span class="cap-plus">+</span>
+            </div>
+            <p class="cap-desc">Full CRM setup, funnel builds, and automated nurture sequences — so your pipeline works while you sleep. Built inside your existing stack.</p>
           </div>
-          <div class="service-item">
-            <p class="service-num">04</p>
-            <h3 class="service-title">Social Media Management</h3>
-            <p class="service-desc">Strategy, editorial calendars, and consistent execution across all major platforms — built to grow the right audience and turn followers into paying customers.</p>
+          <div class="cap-row">
+            <div class="cap-row-head">
+              <span class="cap-num">04</span>
+              <h3 class="cap-title">Social Media Management</h3>
+              <span class="cap-plus">+</span>
+            </div>
+            <p class="cap-desc">Strategy, editorial calendars, and consistent execution across all major platforms — built to grow the right audience and turn followers into paying customers.</p>
           </div>
-          <div class="service-item">
-            <p class="service-num">05</p>
-            <h3 class="service-title">Email & SMS Nurturing</h3>
-            <p class="service-desc">Automated drip campaigns, broadcast sequences, and follow-up flows that keep your leads warm and your clients engaged — built inside your existing stack.</p>
+          <div class="cap-row">
+            <div class="cap-row-head">
+              <span class="cap-num">05</span>
+              <h3 class="cap-title">Email & SMS Nurturing</h3>
+              <span class="cap-plus">+</span>
+            </div>
+            <p class="cap-desc">Automated drip campaigns, broadcast sequences, and follow-up flows that keep your leads warm and your clients engaged — built inside your existing stack.</p>
           </div>
-          <div class="service-item">
-            <p class="service-num">06</p>
-            <h3 class="service-title">Content Strategy & Production</h3>
-            <p class="service-desc">Brand-aligned content across every channel — copy, campaigns, and creative direction that tells your story and moves your audience to act.</p>
+          <div class="cap-row">
+            <div class="cap-row-head">
+              <span class="cap-num">06</span>
+              <h3 class="cap-title">Content Strategy & Production</h3>
+              <span class="cap-plus">+</span>
+            </div>
+            <p class="cap-desc">Brand-aligned content across every channel — copy, campaigns, and creative direction that tells your story and moves your audience to act.</p>
           </div>
         </div>
       </div>
@@ -1626,6 +1692,7 @@
             <div class="team-info">
               <p class="team-name">Ryan Robinson</p>
               <p class="team-role">Founder & Lead Strategist</p>
+              <p class="team-specialty">Strategy · Vision · Sales Systems</p>
             </div>
           </div>
           <div class="team-card">
@@ -1634,6 +1701,7 @@
             <div class="team-info">
               <p class="team-name">Sage Hollis</p>
               <p class="team-role">Head of Strategy</p>
+              <p class="team-specialty">Positioning · Messaging · Research</p>
             </div>
           </div>
           <div class="team-card">
@@ -1642,6 +1710,7 @@
             <div class="team-info">
               <p class="team-name">Nova Cross</p>
               <p class="team-role">Creative Director</p>
+              <p class="team-specialty">Brand Design · Visual Identity · Art Direction</p>
             </div>
           </div>
           <div class="team-card">
@@ -1650,6 +1719,7 @@
             <div class="team-info">
               <p class="team-name">Atlas Vane</p>
               <p class="team-role">Automation & Systems Lead</p>
+              <p class="team-specialty">GHL · CRM · Workflow Automation</p>
             </div>
           </div>
           <div class="team-card">
@@ -1658,6 +1728,7 @@
             <div class="team-info">
               <p class="team-name">Echo Marlowe</p>
               <p class="team-role">Content & Copy Director</p>
+              <p class="team-specialty">Content Strategy · Copywriting · SEO</p>
             </div>
           </div>
         </div>
@@ -1824,7 +1895,7 @@
     }, { threshold: 0.08 });
 
     const revealTargets = document.querySelectorAll(
-      '.section-intro, .section-services, .section-team, .service-item'
+      '.section-intro, .section-services, .section-team'
     );
     revealTargets.forEach(el => {
       el.classList.add('will-reveal');
@@ -2046,6 +2117,15 @@
           ease: 'power2.out'
         });
       }
+    });
+
+    // ── CAPABILITY LIST TOGGLE ───────────────
+    document.querySelectorAll('.cap-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const isActive = row.classList.contains('active');
+        document.querySelectorAll('.cap-row.active').forEach(r => r.classList.remove('active'));
+        if (!isActive) row.classList.add('active');
+      });
     });
 
     // ── WORK HORIZONTAL SCROLL ───────────────
