@@ -1548,7 +1548,8 @@
       .section-dark-break { padding: 80px 24px; }
       .section-manifesto { padding: 64px 0; }
       .manifesto-body { font-size: clamp(24px, 6vw, 32px); }
-      .work-track-wrap { padding-left: 24px; }
+      .work-track-wrap { padding-left: 24px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+      .work-track-wrap::-webkit-scrollbar { display: none; }
       .work-card { width: 260px; height: 360px; }
       .team-grid { grid-template-columns: 1fr 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -2411,21 +2412,25 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script>
-    // ── LENIS SMOOTH SCROLL ──────────────────
-    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
-
+    // ── SCROLL INIT ──────────────────────────
+    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     gsap.registerPlugin(ScrollTrigger);
-    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
-    lenis.on('scroll', ScrollTrigger.update);
 
-    // Anchor links through Lenis
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
+    if (!isMobile) {
+      const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+      gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+      lenis.on('scroll', ScrollTrigger.update);
+
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const target = document.querySelector(a.getAttribute('href'));
+          if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
+        });
       });
-    });
+    } else {
+      window.addEventListener('scroll', ScrollTrigger.update, { passive: true });
+    }
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -2448,7 +2453,7 @@
     }
 
     // ── PROCESS ROWS REVEAL ───────────────────
-    gsap.set('.process-row', { opacity: 0, y: 28 });
+    if (!isMobile) gsap.set('.process-row', { opacity: 0, y: 28 });
     ScrollTrigger.create({
       trigger: '.section-process',
       start: 'top 70%',
