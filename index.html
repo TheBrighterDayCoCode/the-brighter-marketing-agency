@@ -1551,8 +1551,9 @@
       .section-dark-break { padding: 80px 24px; }
       .section-manifesto { padding: 64px 0; }
       .manifesto-body { font-size: clamp(24px, 6vw, 32px); }
-      .work-track-wrap { padding-left: 24px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+      .work-track-wrap { padding-left: 24px; padding-bottom: 32px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
       .work-track-wrap::-webkit-scrollbar { display: none; }
+      .work-pin-section { height: auto !important; min-height: 0 !important; }
       .work-card { width: 260px; height: 360px; }
       .team-grid { grid-template-columns: 1fr 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -2481,7 +2482,10 @@
 
     // ── WORK HORIZONTAL SCROLL ───────────────
     const workTrack = document.querySelector('.work-track');
-    if (workTrack && window.innerWidth > 768) {
+    if (workTrack && isMobile) {
+      gsap.set(workTrack, { x: 0, clearProps: 'transform' });
+    }
+    if (workTrack && !isMobile && window.innerWidth > 768) {
       gsap.to(workTrack, {
         x: () => -(workTrack.scrollWidth - document.documentElement.clientWidth + 80),
         ease: 'none',
