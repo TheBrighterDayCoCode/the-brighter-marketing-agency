@@ -10,10 +10,11 @@
   <meta property="og:description" content="Full-service creative and digital marketing agency based in Austin, TX.">
   <meta property="og:url" content="https://brighterdayagency.com">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://brighterdayagency.com/images/ryan.jpg">
+  <meta property="og:image" content="https://brighterdayagency.com/images/ryan.webp">
   <meta name="author" content="The Brighter Marketing Agency">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Raleway:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -1521,9 +1522,6 @@
     /* ── RESPONSIVE ─────────────────────────── */
 
     @media (max-width: 1100px) {
-      .services-grid { gap: 0; }
-      .service-item:nth-child(odd) { padding-right: 48px; }
-      .service-item:nth-child(even) { padding-left: 48px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .stat-item:nth-child(3) { border-left: none; padding-left: 0; }
     }
@@ -1535,10 +1533,11 @@
       .work-card { width: 300px; height: 420px; }
       .team-grid { grid-template-columns: repeat(3, 1fr); }
       .contact-grid { grid-template-columns: 1fr 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .service-item:nth-child(odd),
-      .service-item:nth-child(even) { padding-left: 0; padding-right: 0; border-left: none; }
       .two-col { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .option-cards { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -1547,6 +1546,8 @@
       .nav-hamburger { display: flex; }
       .inner { padding: 0 24px; }
       .section-dark-break { padding: 80px 24px; }
+      .section-manifesto { padding: 64px 0; }
+      .manifesto-body { font-size: clamp(24px, 6vw, 32px); }
       .work-track-wrap { padding-left: 24px; }
       .work-card { width: 260px; height: 360px; }
       .team-grid { grid-template-columns: 1fr 1fr; }
@@ -1558,6 +1559,13 @@
       .footer-top { flex-direction: column; gap: 12px; text-align: center; }
       .process-row { grid-template-columns: 48px 1fr; }
       .process-tags { display: none; }
+      .cap-title { font-size: clamp(22px, 5.5vw, 32px); }
+      .cap-desc { padding-left: 32px; padding-right: 0; }
+      .cap-row-head { gap: 16px; }
+      .step-question { font-size: clamp(26px, 7vw, 40px); }
+      .wizard-header { flex-wrap: wrap; gap: 16px; }
+      .footer-links { gap: 20px; }
+      .section-intake { padding: 80px 0; }
     }
   </style>
 </head>
@@ -1660,48 +1668,48 @@
       </div>
       <div class="work-track-wrap">
         <div class="work-track">
-          <div class="work-card" data-img="images/nirvana.jpg">
-            <div class="work-card-bg" style="background-image:url('images/nirvana.jpg');background-size:cover;background-position:center"></div>
+          <div class="work-card" data-img="images/nirvana.webp">
+            <div class="work-card-bg" style="background-image:url('images/nirvana.webp');background-size:cover;background-position:center"></div>
             <span class="work-tag">Brand Identity</span>
             <div class="work-card-overlay">
               <p class="work-year">2025</p>
               <h3 class="work-title">Nirvana Bar & Lounge — Full Brand Launch</h3>
             </div>
           </div>
-          <div class="work-card" data-img="images/robinsun.jpg">
-            <div class="work-card-bg" style="background-image:url('images/robinsun.jpg');background-size:cover;background-position:center"></div>
+          <div class="work-card" data-img="images/robinsun.webp">
+            <div class="work-card-bg" style="background-image:url('images/robinsun.webp');background-size:cover;background-position:center"></div>
             <span class="work-tag">CRM & Automation</span>
             <div class="work-card-overlay">
               <p class="work-year">2024</p>
               <h3 class="work-title">Robin Sun Roofing — Lead Pipeline Automation</h3>
             </div>
           </div>
-          <div class="work-card" data-img="images/drainkings.jpg">
-            <div class="work-card-bg" style="background-image:url('images/drainkings.jpg');background-size:cover;background-position:center"></div>
+          <div class="work-card" data-img="images/drainkings.webp">
+            <div class="work-card-bg" style="background-image:url('images/drainkings.webp');background-size:cover;background-position:center"></div>
             <span class="work-tag">Digital Marketing</span>
             <div class="work-card-overlay">
               <p class="work-year">2023</p>
               <h3 class="work-title">Drain Kings Plumbing — SEO & Ad Campaign</h3>
             </div>
           </div>
-          <div class="work-card" data-img="images/sohome.jpg">
-            <div class="work-card-bg" style="background-image:url('images/sohome.jpg');background-size:cover;background-position:center"></div>
+          <div class="work-card" data-img="images/sohome.webp">
+            <div class="work-card-bg" style="background-image:url('images/sohome.webp');background-size:cover;background-position:center"></div>
             <span class="work-tag">Performance Marketing</span>
             <div class="work-card-overlay">
               <p class="work-year">2022</p>
               <h3 class="work-title">SoHome Solar — Facebook, SEO & Google Ads</h3>
             </div>
           </div>
-          <div class="work-card" data-img="images/bodega.jpg">
-            <div class="work-card-bg" style="background-image:url('images/bodega.jpg');background-size:cover;background-position:center"></div>
+          <div class="work-card" data-img="images/bodega.webp">
+            <div class="work-card-bg" style="background-image:url('images/bodega.webp');background-size:cover;background-position:center"></div>
             <span class="work-tag">Brand & Content</span>
             <div class="work-card-overlay">
               <p class="work-year">2020</p>
               <h3 class="work-title">The Bodega at Hi Line — Photography & Brand</h3>
             </div>
           </div>
-          <div class="work-card" data-img="images/zoiedawn.jpg">
-            <div class="work-card-bg" style="background-image:url('images/zoiedawn.jpg');background-size:cover;background-position:center"></div>
+          <div class="work-card" data-img="images/zoiedawn.webp">
+            <div class="work-card-bg" style="background-image:url('images/zoiedawn.webp');background-size:cover;background-position:center"></div>
             <span class="work-tag">Brand Strategy</span>
             <div class="work-card-overlay">
               <p class="work-year">2022</p>
@@ -1904,7 +1912,7 @@
         </div>
         <div class="team-grid">
           <div class="team-card">
-            <img class="team-card-photo" loading="lazy" src="images/ryan.jpg" alt="Ryan Robinson">
+            <img class="team-card-photo" loading="lazy" src="images/ryan.webp" alt="Ryan Robinson">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Ryan Robinson</p>
@@ -1913,7 +1921,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" loading="lazy" src="images/sage.jpg" alt="Sage Hollis">
+            <img class="team-card-photo" loading="lazy" src="images/sage.webp" alt="Sage Hollis">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Sage Hollis</p>
@@ -1922,7 +1930,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" loading="lazy" src="images/nova.jpg" alt="Nova Cross">
+            <img class="team-card-photo" loading="lazy" src="images/nova.webp" alt="Nova Cross">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Nova Cross</p>
@@ -1931,7 +1939,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" loading="lazy" src="images/atlas.jpg" alt="Atlas Vane">
+            <img class="team-card-photo" loading="lazy" src="images/atlas.webp" alt="Atlas Vane">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Atlas Vane</p>
@@ -1940,7 +1948,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-photo" loading="lazy" src="images/echo.jpg" alt="Echo Marlowe">
+            <img class="team-card-photo" loading="lazy" src="images/echo.webp" alt="Echo Marlowe">
             <div class="team-card-photo-overlay"></div>
             <div class="team-info">
               <p class="team-name">Echo Marlowe</p>
