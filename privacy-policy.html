@@ -44,16 +44,22 @@
       padding: 0 48px;
     }
 
-    /* ── NAV ────────────────────────────────── */
+    html { scroll-behavior: auto; }
+
+    /* ── NAV (matches homepage: transparent-over-dark → solid on scroll) ── */
 
     nav {
-      position: sticky;
-      top: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 200;
-      padding: 22px 48px;
+      padding: 28px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      transition: background 0.35s ease, border-color 0.35s ease;
+    }
+
+    nav.scrolled {
       background: var(--color-paper-white);
       border-bottom: 1px solid rgba(0,0,0,0.07);
     }
@@ -61,51 +67,80 @@
     .nav-logo {
       font-size: 12px;
       font-weight: 400;
-      color: var(--color-carbon);
+      color: var(--color-paper-white);
       text-decoration: none;
       letter-spacing: 0.04em;
+      transition: color 0.3s;
     }
+    nav.scrolled .nav-logo { color: var(--color-carbon); }
 
-    .nav-back {
+    .nav-cta {
       font-size: 11px;
       font-weight: 400;
-      color: var(--color-carbon);
+      color: var(--color-paper-white);
       text-decoration: none;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      border: 1px solid rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
       border-radius: var(--radius-buttons);
       padding: 7px 20px;
       transition: all 0.25s;
     }
-    .nav-back:hover {
+    .nav-cta:hover {
+      background: var(--color-paper-white);
+      color: var(--color-carbon);
+      border-color: var(--color-paper-white);
+    }
+    nav.scrolled .nav-cta {
+      color: var(--color-carbon);
+      border-color: rgba(0,0,0,0.2);
+    }
+    nav.scrolled .nav-cta:hover {
       background: var(--color-carbon);
       color: var(--color-paper-white);
       border-color: var(--color-carbon);
     }
 
-    /* ── HEADER ─────────────────────────────── */
+    /* ── DARK OPEN (hero / manifesto treatment) ── */
 
-    .doc-header {
-      padding: 88px 0 56px;
+    .doc-hero {
+      position: relative;
+      background: var(--color-ink-black);
+      overflow: hidden;
+      padding: 200px 48px 120px;
     }
 
-    .label {
+    .doc-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 10% 15%, rgba(28, 72, 36, 0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 65% at 88% 75%, rgba(95, 55, 10, 0.18) 0%, transparent 50%);
+    }
+
+    .doc-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
       font-size: 11px;
       font-weight: 400;
-      color: var(--color-ash);
+      color: rgba(255,255,255,0.35);
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 28px;
+      letter-spacing: 0.22em;
+      margin-bottom: 32px;
     }
 
-    .headline-lg {
-      font-size: clamp(40px, 5.5vw, 72px);
+    .doc-hero-title {
+      font-size: clamp(40px, 6.5vw, 92px);
       font-weight: 300;
-      color: var(--color-carbon);
-      line-height: 1.1;
-      max-width: 780px;
-      margin-bottom: 28px;
+      color: var(--color-paper-white);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
     }
 
     .doc-meta {
@@ -113,34 +148,27 @@
       flex-wrap: wrap;
       gap: 6px 32px;
       font-size: 13px;
-      color: var(--color-ash);
-      max-width: 780px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 64px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .doc-meta strong { color: var(--color-carbon); font-weight: 400; }
-
-    /* ── SUMMARY (manifesto-style pull quote) ── */
-
-    .summary {
-      padding: 8px 0 72px;
-      max-width: 780px;
-    }
+    .doc-meta strong { color: rgba(255,255,255,0.75); font-weight: 400; }
 
     .summary-quote {
       font-family: var(--font-raleway);
-      font-size: clamp(22px, 2.6vw, 30px);
+      font-size: clamp(22px, 2.8vw, 34px);
       font-weight: 400;
-      color: var(--color-carbon);
-      line-height: 1.4;
-      margin-bottom: 28px;
+      color: var(--color-paper-white);
+      line-height: 1.35;
+      margin-bottom: 32px;
     }
 
-    .summary ul {
-      list-style: none;
-    }
+    .summary ul { list-style: none; }
     .summary li {
-      font-size: 16px;
-      color: var(--color-ash);
-      line-height: 1.7;
+      font-size: 15.5px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
       padding-left: 18px;
       position: relative;
     }
@@ -148,9 +176,24 @@
       content: "—";
       position: absolute;
       left: 0;
-      color: var(--color-smoke);
+      color: rgba(255,255,255,0.25);
     }
-    .summary li strong { color: var(--color-carbon); font-weight: 400; }
+    .summary li strong { color: rgba(255,255,255,0.8); font-weight: 400; }
+
+    /* ── SCROLL REVEAL ──────────────────────── */
+    .will-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .will-reveal.revealed { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .will-reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── DOCUMENT BODY (light) ─────────────── */
+
+    .section-light { background: var(--color-paper-white); padding-top: 96px; }
 
     /* ── DOCUMENT BODY ──────────────────────── */
 
@@ -348,32 +391,35 @@
 </head>
 <body>
 
-  <nav>
+  <nav id="nav">
     <a href="/" class="nav-logo">the brighter marketing agency</a>
-    <a href="/" class="nav-back">← Back to site</a>
+    <a href="/" class="nav-cta">← Back to site</a>
   </nav>
 
-  <div class="inner">
-    <header class="doc-header">
-      <p class="label">— Privacy Policy</p>
-      <h1 class="headline-lg">How we handle your data.</h1>
+  <section class="doc-hero">
+    <div class="doc-hero-bg"></div>
+    <div class="doc-hero-inner">
+      <p class="hero-eyebrow">— Privacy Policy</p>
+      <h1 class="doc-hero-title">How we handle your data.</h1>
       <div class="doc-meta">
         <span><strong>Effective</strong> August 22, 2026</span>
         <span><strong>Applies to</strong> brighterdayagency.com, our client portal, and email/SMS communications</span>
       </div>
-    </header>
-
-    <div class="summary">
-      <p class="summary-quote">In plain terms: we collect what we need to run your account and reach you when you ask us to — nothing gets sold, and texting is always your choice.</p>
-      <ul>
-        <li><strong>We don't sell your data</strong> to anyone, ever.</li>
-        <li><strong>Texting is opt-in</strong> — reply STOP anytime to end it.</li>
-        <li><strong>A short, named list of tools</strong> touches your data — CRM, hosting, payments — never an open-ended list of "partners."</li>
-        <li><strong>You can ask us</strong> to see, correct, or delete what we hold — email brighterdaysolution@gmail.com.</li>
-      </ul>
+      <div class="summary">
+        <p class="summary-quote">In plain terms: we collect what we need to run your account and reach you when you ask us to — nothing gets sold, and texting is always your choice.</p>
+        <ul>
+          <li><strong>We don't sell your data</strong> to anyone, ever.</li>
+          <li><strong>Texting is opt-in</strong> — reply STOP anytime to end it.</li>
+          <li><strong>A short, named list of tools</strong> touches your data — CRM, hosting, payments — never an open-ended list of "partners."</li>
+          <li><strong>You can ask us</strong> to see, correct, or delete what we hold — email brighterdaysolution@gmail.com.</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <div class="doc-body">
+  <section class="section-light">
+    <div class="inner">
+    <div class="doc-body will-reveal">
       <nav class="toc" aria-label="Table of contents">
         <ol>
           <li><a href="#scope">Who this covers</a></li>
@@ -504,7 +550,8 @@
         </section>
       </main>
     </div>
-  </div>
+    </div>
+  </section>
 
   <!-- CONTACT / FOOTER — matches homepage -->
   <section class="section-contact">
@@ -541,5 +588,23 @@
     </div>
   </section>
 
+  <script>
+    // ── NAV (identical behavior to homepage) ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 64);
+    }, { passive: true });
+
+    // ── SCROLL REVEAL ──────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.will-reveal').forEach(el => revealObserver.observe(el));
+  </script>
 </body>
 </html>
