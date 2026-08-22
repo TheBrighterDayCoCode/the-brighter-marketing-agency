@@ -25,3 +25,20 @@
 <FilesMatch "\.html$">
   Header set Cache-Control "public, max-age=3600"
 </FilesMatch>
+
+# ── Hardening ─────────────────────────────────────────────
+# No directory listings anywhere (explicit, not relying on host default)
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+# Block dotfiles and source-control leftovers
+<IfModule mod_authz_core.c>
+  <FilesMatch "^\.">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\.(git|env|htpasswd) - [F,L]
+</IfModule>

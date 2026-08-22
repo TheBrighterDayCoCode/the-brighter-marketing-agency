@@ -1,0 +1,4 @@
+# Unlisted directory — header-level noindex alongside the in-page meta tag.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
