@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Terms &amp; Conditions — The Brighter Marketing Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Raleway:wght@400&display=swap">
+  <style>
+    :root {
+      --color-paper-white: #ffffff;
+      --color-ink-black: #000000;
+      --color-carbon: #181818;
+      --color-ash: #6d6d6d;
+      --color-smoke: #9a9a9a;
+      --color-pewter: #808080;
+      --color-graphite: #636363;
+
+      --font-roobert: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --font-raleway: 'Raleway', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+      --radius-buttons: 75px;
+      --radius-cards: 0px;
+
+      --page-max: 1440px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-roobert);
+      background: var(--color-paper-white);
+      color: var(--color-carbon);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+
+    .inner {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    html { scroll-behavior: auto; }
+
+    /* ── NAV (matches homepage: transparent-over-dark → solid on scroll) ── */
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.35s ease, border-color 0.35s ease;
+    }
+
+    nav.scrolled {
+      background: var(--color-paper-white);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .nav-logo {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-paper-white);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+    nav.scrolled .nav-logo { color: var(--color-carbon); }
+
+    .nav-cta {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-paper-white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: var(--radius-buttons);
+      padding: 7px 20px;
+      transition: all 0.25s;
+    }
+    .nav-cta:hover {
+      background: var(--color-paper-white);
+      color: var(--color-carbon);
+      border-color: var(--color-paper-white);
+    }
+    nav.scrolled .nav-cta {
+      color: var(--color-carbon);
+      border-color: rgba(0,0,0,0.2);
+    }
+    nav.scrolled .nav-cta:hover {
+      background: var(--color-carbon);
+      color: var(--color-paper-white);
+      border-color: var(--color-carbon);
+    }
+
+    /* ── DARK OPEN (hero / manifesto treatment) ── */
+
+    .doc-hero {
+      position: relative;
+      background: var(--color-ink-black);
+      overflow: hidden;
+      padding: 200px 48px 120px;
+    }
+
+    .doc-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 10% 15%, rgba(28, 72, 36, 0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 65% at 88% 75%, rgba(95, 55, 10, 0.18) 0%, transparent 50%);
+    }
+
+    .doc-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 32px;
+    }
+
+    .doc-hero-title {
+      font-size: clamp(40px, 6.5vw, 92px);
+      font-weight: 300;
+      color: var(--color-paper-white);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .doc-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 32px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 64px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .doc-meta strong { color: rgba(255,255,255,0.75); font-weight: 400; }
+
+    .summary-quote {
+      font-family: var(--font-raleway);
+      font-size: clamp(22px, 2.8vw, 34px);
+      font-weight: 400;
+      color: var(--color-paper-white);
+      line-height: 1.35;
+      margin-bottom: 32px;
+    }
+
+    .summary ul { list-style: none; }
+    .summary li {
+      font-size: 15.5px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      padding-left: 18px;
+      position: relative;
+    }
+    .summary li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.25);
+    }
+    .summary li strong { color: rgba(255,255,255,0.8); font-weight: 400; }
+
+    /* ── SCROLL REVEAL ──────────────────────── */
+    .will-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .will-reveal.revealed { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .will-reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── DOCUMENT BODY (light) ─────────────── */
+
+    .section-light { background: var(--color-paper-white); padding-top: 96px; }
+
+    .doc-body {
+      padding-bottom: 100px;
+      display: grid;
+      grid-template-columns: 200px minmax(0, 780px);
+      gap: 72px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
+
+    .toc ol {
+      list-style: none;
+      border-left: 1px solid rgba(0,0,0,0.09);
+    }
+    .toc a {
+      display: block;
+      padding: 6px 0 6px 18px;
+      margin-left: -1px;
+      border-left: 1px solid transparent;
+      font-size: 12.5px;
+      color: var(--color-ash);
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .toc a:hover { color: var(--color-carbon); border-left-color: var(--color-carbon); }
+
+    section.doc-section {
+      padding-top: 44px;
+      margin-top: 44px;
+      border-top: 1px solid rgba(0,0,0,0.09);
+      scroll-margin-top: 100px;
+    }
+    section.doc-section:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+
+    .sec-num {
+      font-size: 11px;
+      color: var(--color-ash);
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--color-carbon);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-carbon);
+      margin: 26px 0 8px;
+    }
+
+    .body-text {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--color-carbon);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      max-width: 640px;
+    }
+    .body-text.muted { color: var(--color-ash); }
+
+    ul.plain { margin: 0 0 14px 18px; }
+    ul.plain li { font-size: 16px; line-height: 1.7; color: var(--color-carbon); margin-bottom: 6px; }
+
+    code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.9em;
+      background: rgba(0,0,0,0.05);
+      padding: 1px 6px;
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(0,0,0,0.09);
+      margin-bottom: 22px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.09); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    th {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-ash);
+      font-weight: 400;
+    }
+
+    /* Rights / terms grid */
+    .rights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1px;
+      background: rgba(0,0,0,0.09);
+      border: 1px solid rgba(0,0,0,0.09);
+      margin: 8px 0 20px;
+      max-width: 640px;
+    }
+    .right-card { background: var(--color-paper-white); padding: 20px; }
+    .right-card .r-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-ash);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .right-card p { font-size: 14px; color: var(--color-carbon); line-height: 1.6; }
+
+    /* ── CONTACT / FOOTER (matches homepage) ── */
+
+    .section-contact {
+      background: var(--color-ink-black);
+      padding: 100px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 8% 85%, rgba(18, 48, 24, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 50% at 92% 18%, rgba(80, 46, 8, 0.16) 0%, transparent 45%);
+    }
+    .contact-inner { position: relative; z-index: 2; }
+    .contact-headline {
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 300;
+      color: var(--color-paper-white);
+      line-height: 1.1;
+      max-width: 720px;
+      margin-bottom: 56px;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 56px;
+    }
+    .contact-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.28);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+    }
+    .contact-value {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--color-paper-white);
+      text-decoration: none;
+      line-height: 1.55;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .contact-value:hover { opacity: 0.55; }
+
+    .footer-bar { padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.07); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.28); text-decoration: none; }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-link { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.25); text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s; }
+    .footer-link:hover { color: rgba(255,255,255,0.65); }
+    .footer-copy { font-size: 10px; color: rgba(255,255,255,0.18); }
+
+    @media (max-width: 900px) {
+      nav { padding: 20px 32px; }
+      .inner { padding: 0 32px; }
+      .doc-body { grid-template-columns: 1fr; }
+      .toc { position: static; margin-bottom: 8px; }
+      .toc ol { display: flex; flex-wrap: wrap; border-left: none; gap: 4px 18px; }
+      .toc a { padding: 0; border-left: none !important; }
+      .contact-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 18px 24px; }
+      .inner { padding: 0 24px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo">the brighter marketing agency</a>
+    <a href="/" class="nav-cta">← Back to site</a>
+  </nav>
+
+  <section class="doc-hero">
+    <div class="doc-hero-bg"></div>
+    <div class="doc-hero-inner">
+      <p class="hero-eyebrow">— Terms &amp; Conditions</p>
+      <h1 class="doc-hero-title">The terms behind the work.</h1>
+      <div class="doc-meta">
+        <span><strong>Effective</strong> August 22, 2026</span>
+        <span><strong>Applies to</strong> brighterdayagency.com, our client portal, and any agreement referencing this page</span>
+      </div>
+      <div class="summary">
+        <p class="summary-quote">In plain terms: use our services in good faith, pay what's owed, and don't use our tools to spam or break the law — we'll deliver what we promised, without guaranteeing specific marketing results.</p>
+        <ul>
+          <li><strong>Portal access is month-to-month</strong> — cancel anytime; agency work follows your signed scope of work.</li>
+          <li><strong>You own your data and brand</strong> — we don't hold either hostage if you leave.</li>
+          <li><strong>You're responsible</strong> for what you send through the portal — no illegal or unsolicited messaging.</li>
+          <li><strong>We don't guarantee</strong> specific rankings, leads, or revenue from marketing services.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="inner">
+    <div class="doc-body will-reveal">
+      <nav class="toc" aria-label="Table of contents">
+        <ol>
+          <li><a href="#agreement">Agreement to terms</a></li>
+          <li><a href="#services">Our services</a></li>
+          <li><a href="#accounts">Accounts &amp; eligibility</a></li>
+          <li><a href="#payments">Payments &amp; billing</a></li>
+          <li><a href="#acceptable-use">Acceptable use</a></li>
+          <li><a href="#your-content">Your content &amp; data</a></li>
+          <li><a href="#ip">Intellectual property</a></li>
+          <li><a href="#no-guarantee">No guaranteed results</a></li>
+          <li><a href="#liability">Liability &amp; indemnity</a></li>
+          <li><a href="#termination">Termination</a></li>
+          <li><a href="#law">Governing law &amp; changes</a></li>
+          <li><a href="#contact">Contact us</a></li>
+        </ol>
+      </nav>
+
+      <main>
+        <section class="doc-section" id="agreement">
+          <p class="sec-num">01</p>
+          <h2>Agreement to terms</h2>
+          <p class="body-text">These terms govern your use of services provided by <strong>Brighter Day Solutions LLC</strong> ("BDS," "we," "us"), including our white-labeled CRM/marketing-automation portal at <code>portal.brighterdayagency.com</code>, and services delivered through our marketing agency, <strong>The Brighter Day Company</strong> ("TBDC"). By using our services, signing a proposal or scope of work, or accessing the portal, you agree to these terms on behalf of yourself and any business you represent.</p>
+          <p class="body-text muted">Where a signed agreement or statement of work conflicts with this page, the signed agreement controls.</p>
+        </section>
+
+        <section class="doc-section" id="services">
+          <p class="sec-num">02</p>
+          <h2>Our services</h2>
+          <p class="body-text">We provide two related but distinct services:</p>
+          <ul class="plain">
+            <li><strong>TBDC agency services</strong> — websites, brand strategy, paid ads, content, and marketing campaigns, scoped per project or retainer.</li>
+            <li><strong>BDS portal access</strong> — a white-labeled CRM/marketing-automation sub-account (built on GoHighLevel infrastructure), billed monthly.</li>
+          </ul>
+          <p class="body-text muted">Specific deliverables, timelines, and pricing for agency work are set in your individual proposal or scope of work, not this page.</p>
+        </section>
+
+        <section class="doc-section" id="accounts">
+          <p class="sec-num">03</p>
+          <h2>Accounts &amp; eligibility</h2>
+          <p class="body-text">You must be at least 18 and authorized to bind the business you represent to use our services. You're responsible for the accuracy of information on your account and for anything that happens under your login credentials — let us know right away if you suspect unauthorized access.</p>
+        </section>
+
+        <section class="doc-section" id="payments">
+          <p class="sec-num">04</p>
+          <h2>Payments &amp; billing</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Service</th><th>Billing</th><th>Cancellation</th></tr></thead>
+              <tbody>
+                <tr><td>Portal access</td><td>Monthly, auto-renewing</td><td>Cancel anytime; access continues through the paid period</td></tr>
+                <tr><td>Agency retainers</td><td>Monthly, per signed agreement</td><td>Per the notice period in your agreement</td></tr>
+                <tr><td>Project work</td><td>Deposit plus milestone or completion payments</td><td>Deposits are non-refundable once work has started</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="body-text muted">Fees are processed through Stripe. We don't store your full card number. Late or failed payments may result in paused access until resolved.</p>
+        </section>
+
+        <section class="doc-section" id="acceptable-use">
+          <p class="sec-num">05</p>
+          <h2>Acceptable use</h2>
+          <p class="body-text">You agree not to use our services, or the portal, to:</p>
+          <ul class="plain">
+            <li>Send unsolicited bulk email or text messages, or message contacts who haven't consented to hear from you</li>
+            <li>Violate CAN-SPAM, TCPA, or any applicable messaging or data-privacy law</li>
+            <li>Transmit illegal, fraudulent, or harassing content</li>
+            <li>Attempt to disrupt, reverse-engineer, or gain unauthorized access to our systems or infrastructure</li>
+          </ul>
+          <p class="body-text muted">If you run your own sub-account, you're responsible for how you and your contacts use it — including your own contact lists' consent status.</p>
+        </section>
+
+        <section class="doc-section" id="your-content">
+          <p class="sec-num">06</p>
+          <h2>Your content &amp; data</h2>
+          <p class="body-text">You own the contact data, content, and brand assets you upload to the portal or provide for a project. You grant us a limited license to use, host, and process that content solely to deliver the services you've engaged us for. We don't sell it or use it for anyone else's benefit — see our <a href="/privacy-policy.html">Privacy Policy</a> for how we handle it.</p>
+        </section>
+
+        <section class="doc-section" id="ip">
+          <p class="sec-num">07</p>
+          <h2>Intellectual property</h2>
+          <p class="body-text">We retain ownership of our own tools, templates, portal software, and internal processes. Final deliverables created specifically for you under a signed agreement (a finished website, brand assets, ad creative) become yours upon full payment, unless that agreement says otherwise. Reusable frameworks and pre-existing tools we bring to the work remain ours.</p>
+        </section>
+
+        <section class="doc-section" id="no-guarantee">
+          <p class="sec-num">08</p>
+          <h2>No guaranteed results</h2>
+          <p class="body-text">Marketing, advertising, and SEO outcomes depend on factors outside our control — market conditions, platform algorithm changes, your industry, and your own follow-through. We do not guarantee specific rankings, lead volume, conversion rates, or revenue from any service.</p>
+        </section>
+
+        <section class="doc-section" id="liability">
+          <p class="sec-num">09</p>
+          <h2>Liability &amp; indemnity</h2>
+          <div class="rights-grid">
+            <div class="right-card"><span class="r-label">Our liability</span><p>Capped at the fees you paid us in the 3 months before a claim. We're not liable for indirect, incidental, or consequential damages.</p></div>
+            <div class="right-card"><span class="r-label">Your indemnity</span><p>You agree to cover our costs if your use of the portal (e.g. illegal messaging) results in claims against us.</p></div>
+          </div>
+          <p class="body-text muted">Nothing here limits liability where it can't be limited by law.</p>
+        </section>
+
+        <section class="doc-section" id="termination">
+          <p class="sec-num">10</p>
+          <h2>Termination</h2>
+          <p class="body-text">Either of us may end the relationship at any time, subject to any notice period in a signed agreement. On termination, you can export your portal data for 30 days before it's deleted. Fees already paid for work performed are non-refundable; fees for undelivered work are handled per your agreement.</p>
+        </section>
+
+        <section class="doc-section" id="law">
+          <p class="sec-num">11</p>
+          <h2>Governing law &amp; changes</h2>
+          <p class="body-text">These terms are governed by the laws of the State of Texas. We may update this page as our services change — the effective date at the top always reflects the latest version, and continued use after an update means you accept the revised terms.</p>
+        </section>
+
+        <section class="doc-section" id="contact">
+          <p class="sec-num">12</p>
+          <h2>Contact us</h2>
+          <p class="body-text">Questions about these terms:<br>
+          <strong>Brighter Day Solutions LLC</strong><br>
+          <a href="mailto:brighterdaysolution@gmail.com">brighterdaysolution@gmail.com</a><br>
+          Austin, Texas area</p>
+        </section>
+      </main>
+    </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER — matches homepage -->
+  <section class="section-contact">
+    <div class="contact-bg"></div>
+    <div class="inner">
+      <div class="contact-inner">
+        <h2 class="contact-headline">Let's build something remarkable.</h2>
+        <div class="contact-grid">
+          <div>
+            <p class="contact-label">New Business</p>
+            <a href="mailto:brighterdaysolution@gmail.com" class="contact-value">brighterdaysolution@gmail.com</a>
+          </div>
+          <div>
+            <p class="contact-label">Location</p>
+            <span class="contact-value">Austin, TX</span>
+          </div>
+          <div>
+            <p class="contact-label">Follow Along</p>
+            <a href="#" class="contact-value">Instagram</a>
+            <a href="#" class="contact-value">LinkedIn</a>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <div class="footer-bottom">
+            <a href="/" class="footer-logo">the brighter marketing agency</a>
+            <ul class="footer-links">
+              <li><a href="#" class="footer-link">Privacy</a></li>
+              <li><a href="#" class="footer-link">Terms</a></li>
+            </ul>
+            <span class="footer-copy">© 2026 TBMA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ── NAV (identical behavior to homepage) ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 64);
+    }, { passive: true });
+
+    // ── SCROLL REVEAL ──────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.will-reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
