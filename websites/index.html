@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Websites for Home Services — The Brighter Marketing Agency</title>
+  <meta name="description" content="Flat-priced websites for home services and regional small business in Austin, TX. Live in under two weeks, with a care plan so the site doesn't rot after launch.">
+  <meta property="og:title" content="Websites for Home Services — The Brighter Marketing Agency">
+  <meta property="og:description" content="Flat price, quoted up front. Live in under two weeks. Built by someone who runs a home-services business.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Raleway:wght@400&display=swap">
+  <style>
+
+    :root {
+      --color-paper-white: #ffffff;
+      --color-ink-black: #000000;
+      --color-carbon: #181818;
+      --color-ash: #6d6d6d;
+      --color-smoke: #9a9a9a;
+      --color-pewter: #808080;
+      --color-graphite: #636363;
+
+      --font-roobert: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --font-raleway: 'Raleway', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+      --radius-buttons: 75px;
+      --radius-cards: 0px;
+
+      --page-max: 1440px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-roobert);
+      background: var(--color-paper-white);
+      color: var(--color-carbon);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+
+    .inner {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    html { scroll-behavior: auto; }
+
+    /* ── NAV (matches homepage: transparent-over-dark → solid on scroll) ── */
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.35s ease, border-color 0.35s ease;
+    }
+
+    nav.scrolled {
+      background: var(--color-paper-white);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .nav-logo {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-paper-white);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+    nav.scrolled .nav-logo { color: var(--color-carbon); }
+
+    .nav-cta {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-paper-white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: var(--radius-buttons);
+      padding: 7px 20px;
+      transition: all 0.25s;
+    }
+    .nav-cta:hover {
+      background: var(--color-paper-white);
+      color: var(--color-carbon);
+      border-color: var(--color-paper-white);
+    }
+    nav.scrolled .nav-cta {
+      color: var(--color-carbon);
+      border-color: rgba(0,0,0,0.2);
+    }
+    nav.scrolled .nav-cta:hover {
+      background: var(--color-carbon);
+      color: var(--color-paper-white);
+      border-color: var(--color-carbon);
+    }
+
+    /* ── DARK OPEN (hero / manifesto treatment) ── */
+
+    .doc-hero {
+      position: relative;
+      background: var(--color-ink-black);
+      overflow: hidden;
+      padding: 200px 48px 120px;
+    }
+
+    .doc-hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 10% 15%, rgba(28, 72, 36, 0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 65% at 88% 75%, rgba(95, 55, 10, 0.18) 0%, transparent 50%);
+    }
+
+    .doc-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 32px;
+    }
+
+    .doc-hero-title {
+      font-size: clamp(40px, 6.5vw, 92px);
+      font-weight: 300;
+      color: var(--color-paper-white);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .doc-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 32px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 64px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .doc-meta strong { color: rgba(255,255,255,0.75); font-weight: 400; }
+
+    .summary-quote {
+      font-family: var(--font-raleway);
+      font-size: clamp(22px, 2.8vw, 34px);
+      font-weight: 400;
+      color: var(--color-paper-white);
+      line-height: 1.35;
+      margin-bottom: 32px;
+    }
+
+    .summary ul { list-style: none; }
+    .summary li {
+      font-size: 15.5px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      padding-left: 18px;
+      position: relative;
+    }
+    .summary li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.25);
+    }
+    .summary li strong { color: rgba(255,255,255,0.8); font-weight: 400; }
+
+    /* ── SCROLL REVEAL ──────────────────────── */
+    .will-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .will-reveal.revealed { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .will-reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── DOCUMENT BODY (light) ─────────────── */
+
+    .section-light { background: var(--color-paper-white); padding-top: 96px; }
+
+    /* ── DOCUMENT BODY ──────────────────────── */
+
+    .doc-body {
+      padding-bottom: 100px;
+      display: grid;
+      grid-template-columns: 200px minmax(0, 780px);
+      gap: 72px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
+
+    .toc ol {
+      list-style: none;
+      border-left: 1px solid rgba(0,0,0,0.09);
+    }
+    .toc a {
+      display: block;
+      padding: 6px 0 6px 18px;
+      margin-left: -1px;
+      border-left: 1px solid transparent;
+      font-size: 12.5px;
+      color: var(--color-ash);
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .toc a:hover { color: var(--color-carbon); border-left-color: var(--color-carbon); }
+
+    section.doc-section {
+      padding-top: 44px;
+      margin-top: 44px;
+      border-top: 1px solid rgba(0,0,0,0.09);
+      scroll-margin-top: 100px;
+    }
+    section.doc-section:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+
+    .sec-num {
+      font-size: 11px;
+      color: var(--color-ash);
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--color-carbon);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-carbon);
+      margin: 26px 0 8px;
+    }
+
+    .body-text {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--color-carbon);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      max-width: 640px;
+    }
+    .body-text.muted { color: var(--color-ash); }
+
+    ul.plain { margin: 0 0 14px 18px; }
+    ul.plain li { font-size: 16px; line-height: 1.7; color: var(--color-carbon); margin-bottom: 6px; }
+
+    code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.9em;
+      background: rgba(0,0,0,0.05);
+      padding: 1px 6px;
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(0,0,0,0.09);
+      margin-bottom: 22px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.09); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    th {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-ash);
+      font-weight: 400;
+    }
+
+    /* Rights grid */
+    .rights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1px;
+      background: rgba(0,0,0,0.09);
+      border: 1px solid rgba(0,0,0,0.09);
+      margin: 8px 0 20px;
+      max-width: 640px;
+    }
+    .right-card { background: var(--color-paper-white); padding: 20px; }
+    .right-card .r-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-ash);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .right-card p { font-size: 14px; color: var(--color-carbon); line-height: 1.6; }
+
+    /* ── CONTACT / FOOTER (matches homepage) ── */
+
+    .section-contact {
+      background: var(--color-ink-black);
+      padding: 100px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 8% 85%, rgba(18, 48, 24, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 50% at 92% 18%, rgba(80, 46, 8, 0.16) 0%, transparent 45%);
+    }
+    .contact-inner { position: relative; z-index: 2; }
+    .contact-headline {
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 300;
+      color: var(--color-paper-white);
+      line-height: 1.1;
+      max-width: 720px;
+      margin-bottom: 56px;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 56px;
+    }
+    .contact-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.28);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+    }
+    .contact-value {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--color-paper-white);
+      text-decoration: none;
+      line-height: 1.55;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .contact-value:hover { opacity: 0.55; }
+
+    .footer-bar { padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.07); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.28); text-decoration: none; }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-link { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.25); text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s; }
+    .footer-link:hover { color: rgba(255,255,255,0.65); }
+    .footer-copy { font-size: 10px; color: rgba(255,255,255,0.18); }
+
+    @media (max-width: 900px) {
+      nav { padding: 20px 32px; }
+      .inner { padding: 0 32px; }
+      .doc-body { grid-template-columns: 1fr; }
+      .toc { position: static; margin-bottom: 8px; }
+      .toc ol { display: flex; flex-wrap: wrap; border-left: none; gap: 4px 18px; }
+      .toc a { padding: 0; border-left: none !important; }
+      .contact-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 18px 24px; }
+      .inner { padding: 0 24px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  
+    /* ── OFFER PAGE COMPONENTS (built from existing tokens only) ── */
+
+    .lede-line {
+      font-size: clamp(16px, 2.1vw, 21px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      max-width: 60ch;
+      margin-bottom: 44px;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 56px; }
+
+    .btn {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-roobert);
+      font-size: 12px; font-weight: 400;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      text-decoration: none;
+      border-radius: var(--radius-buttons);
+      padding: 14px 30px;
+      border: 1px solid transparent;
+      transition: all 0.25s;
+    }
+    .btn-solid { background: var(--color-paper-white); color: var(--color-ink-black); border-color: var(--color-paper-white); }
+    .btn-solid:hover { background: transparent; color: var(--color-paper-white); }
+    .btn-hollow { color: var(--color-paper-white); border-color: rgba(255,255,255,0.35); }
+    .btn-hollow:hover { background: var(--color-paper-white); color: var(--color-ink-black); border-color: var(--color-paper-white); }
+    .btn-dark { background: var(--color-ink-black); color: var(--color-paper-white); border-color: var(--color-ink-black); }
+    .btn-dark:hover { background: transparent; color: var(--color-ink-black); }
+    .btn-line { color: var(--color-carbon); border-color: rgba(0,0,0,0.2); }
+    .btn-line:hover { background: var(--color-carbon); color: var(--color-paper-white); border-color: var(--color-carbon); }
+    .btn:focus-visible { outline: 2px solid var(--color-pewter); outline-offset: 3px; }
+
+    .hero-facts { display: flex; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.12); }
+    .hero-fact { flex: 1 1 200px; padding: 26px 28px 0 0; }
+    .hero-fact b {
+      display: block; font-size: 30px; font-weight: 300;
+      color: var(--color-paper-white); letter-spacing: -0.02em; line-height: 1.1;
+    }
+    .hero-fact span {
+      display: block; margin-top: 8px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .band { padding: 110px 0; }
+    .band-head { max-width: 760px; margin-bottom: 56px; }
+    .band-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em;
+      color: var(--color-pewter); margin-bottom: 26px;
+    }
+    .band-title {
+      font-size: clamp(30px, 4.4vw, 56px); font-weight: 300;
+      letter-spacing: -0.02em; line-height: 1.06; color: var(--color-ink-black);
+    }
+    .band-sub { margin-top: 22px; font-size: 16px; font-weight: 300; line-height: 1.65; color: var(--color-ash); max-width: 62ch; }
+
+    .tiers { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(0,0,0,0.1); }
+    .tier {
+      border-right: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      border-radius: var(--radius-cards);
+      padding: 40px 34px 44px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .tier:last-child { border-right: none; }
+    .tier-name { font-size: 13px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-graphite); }
+    .tier-price { font-size: 46px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; color: var(--color-ink-black); }
+    .tier-price i { font-style: normal; font-size: 14px; color: var(--color-pewter); letter-spacing: 0; }
+    .tier-recur { font-size: 13px; color: var(--color-ash); margin-top: -12px; }
+    .tier-for { font-size: 14.5px; font-weight: 300; line-height: 1.6; color: var(--color-ash); }
+    .tier ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .tier li {
+      font-size: 14.5px; font-weight: 300; line-height: 1.55; color: var(--color-carbon);
+      padding-left: 20px; position: relative;
+    }
+    .tier li::before {
+      content: ""; position: absolute; left: 0; top: 9px;
+      width: 6px; height: 1px; background: var(--color-pewter);
+    }
+    .tier-when {
+      margin-top: auto; padding-top: 22px; border-top: 1px solid rgba(0,0,0,0.1);
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-pewter);
+    }
+
+    .pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 56px; }
+    .pair h3 { font-size: 17px; font-weight: 400; margin-bottom: 12px; color: var(--color-ink-black); }
+    .pair p { font-size: 14.5px; font-weight: 300; line-height: 1.7; color: var(--color-ash); }
+
+    .steps { border-top: 1px solid rgba(0,0,0,0.1); }
+    .step {
+      display: grid; grid-template-columns: 90px 1fr; gap: 40px;
+      padding: 38px 0; border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .step-index { font-size: 11px; letter-spacing: 0.18em; color: var(--color-pewter); padding-top: 6px; }
+    .step-index em { display: block; font-style: normal; margin-top: 8px; color: var(--color-smoke); letter-spacing: 0.1em; }
+    .step h3 { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 12px; color: var(--color-ink-black); }
+    .step p { font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--color-ash); max-width: 64ch; }
+
+    .dark-band { background: var(--color-ink-black); padding: 110px 0; position: relative; overflow: hidden; }
+    .dark-band-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 12% 20%, rgba(28,72,36,0.20) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 65% at 86% 78%, rgba(95,55,10,0.16) 0%, transparent 50%);
+    }
+    .dark-band .inner { position: relative; z-index: 2; }
+    .split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: start; }
+    .split h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 300; color: var(--color-paper-white); letter-spacing: -0.02em; line-height: 1.08; }
+    .split p { margin-top: 24px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.55); max-width: 56ch; }
+    .assurances { display: flex; flex-direction: column; }
+    .assurance { padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.12); }
+    .assurance b { display: block; font-size: 15px; font-weight: 400; color: var(--color-paper-white); }
+    .assurance span { display: block; margin-top: 6px; font-size: 13.5px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.6; }
+
+    .care {
+      display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center;
+      border: 1px solid rgba(0,0,0,0.1); border-radius: var(--radius-cards); padding: 44px 40px;
+    }
+    .care h3 { font-size: 24px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 14px; }
+    .care p { font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--color-ash); max-width: 56ch; }
+    .care-figure { font-size: 52px; font-weight: 300; letter-spacing: -0.03em; white-space: nowrap; color: var(--color-ink-black); }
+    .care-figure i { font-style: normal; font-size: 15px; color: var(--color-pewter); letter-spacing: 0; }
+
+    .will-reveal.revealed { opacity: 1; transform: none; }
+
+    @media (max-width: 1000px) {
+      .tiers { grid-template-columns: 1fr; }
+      .tier { border-right: none; }
+      .split, .pairs, .care { grid-template-columns: 1fr; gap: 34px; }
+      .step { grid-template-columns: 1fr; gap: 14px; }
+      .step-index em { display: inline; margin-left: 12px; }
+    }
+    @media (max-width: 640px) {
+      .inner { padding: 0 24px; }
+      nav { padding: 20px 24px; }
+      .band { padding: 72px 0; }
+      .dark-band { padding: 72px 0; }
+      .care { padding: 32px 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .will-reveal { opacity: 1; transform: none; transition: none; }
+      * { transition: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+  <nav id="nav">
+    <span class="nav-logo">the brighter marketing agency</span>
+    <a href="https://link.brighterdayagency.com/widget/booking/Z5XQ2r6fcOIOH7Tses4T" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
+  </nav>
+
+  <section class="doc-hero">
+    <div class="doc-hero-bg"></div>
+    <div class="doc-hero-inner">
+      <p class="hero-eyebrow">&mdash; Websites</p>
+      <h1 class="doc-hero-title">A website your customers can actually find and trust.</h1>
+      <p class="lede-line">Built for home services and regional small business by someone who runs one. Flat price, quoted up front. Live in under two weeks. And a care plan so it doesn't quietly rot six months after launch.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn btn-solid">See the three options</a>
+        <a href="https://link.brighterdayagency.com/widget/booking/Z5XQ2r6fcOIOH7Tses4T" class="btn btn-hollow" target="_blank" rel="noopener">Book a 15-minute call</a>
+      </div>
+      <div class="hero-facts">
+        <div class="hero-fact"><b>$750</b><span>Starting price, flat</span></div>
+        <div class="hero-fact"><b>Under 2 weeks</b><span>Kickoff to live</span></div>
+        <div class="hero-fact"><b>$99/mo</b><span>Care plan, optional</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light band" id="pricing">
+    <div class="inner">
+      <div class="band-head will-reveal">
+        <p class="band-label">Pricing</p>
+        <h2 class="band-title">Three ways to do this. All of them flat-priced.</h2>
+        <p class="band-sub">You get the number before work starts, not after. No hourly billing, no surprise change orders, no &ldquo;it depends.&rdquo;</p>
+      </div>
+
+      <div class="tiers will-reveal">
+        <div class="tier">
+          <p class="tier-name">Starter</p>
+          <p class="tier-price">$750<i> one-time</i></p>
+          <p class="tier-for">You need to exist online, look legitimate, and get the phone to ring.</p>
+          <ul>
+            <li>Five pages, built on a proven template</li>
+            <li>Mobile-first &mdash; most of your traffic is a phone in a driveway</li>
+            <li>Click-to-call and a quote request form</li>
+            <li>Your services, your area, your photos</li>
+          </ul>
+          <p class="tier-when">Live in about a week</p>
+        </div>
+        <div class="tier">
+          <p class="tier-name">Growth</p>
+          <p class="tier-price">$1,500<i> one-time</i></p>
+          <p class="tier-recur">plus $99/mo care plan</p>
+          <p class="tier-for">You want to be found in search, not just shown to people who already have your card.</p>
+          <ul>
+            <li>Custom design &mdash; not a template with your logo dropped in</li>
+            <li>CMS, so you can post and edit without calling me</li>
+            <li>Local SEO baseline set up properly</li>
+            <li>Care plan included and running from day one</li>
+          </ul>
+          <p class="tier-when">Live in about two weeks</p>
+        </div>
+        <div class="tier">
+          <p class="tier-name">Custom</p>
+          <p class="tier-price">$3,000<i>+</i></p>
+          <p class="tier-for">You have more than one location, crew, or system that needs to talk to the site.</p>
+          <ul>
+            <li>Multi-page and multi-location structure</li>
+            <li>Integrations &mdash; CRM, booking, payments, review tools</li>
+            <li>Scoped and quoted flat after a discovery call</li>
+            <li>Care plan available at the same $99/mo</li>
+          </ul>
+          <p class="tier-when">Timeline set at scoping</p>
+        </div>
+      </div>
+
+      <div class="pairs will-reveal">
+        <div class="pair">
+          <h3>Local SEO baseline</h3>
+          <p>Google Business Profile claimed and filled out, your name, address and phone consistent everywhere they appear, and one real page per service area &mdash; so you show up when someone two towns over searches at 9pm. Included, not upsold.</p>
+        </div>
+        <div class="pair">
+          <h3>The review loop</h3>
+          <p>The Google review request goes out attached to the final invoice, while the work is still fresh &mdash; not three weeks later when nobody remembers what you did.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light band">
+    <div class="inner">
+      <div class="band-head will-reveal">
+        <p class="band-label">How it works</p>
+        <h2 class="band-title">Four steps. You are needed for two of them.</h2>
+        <p class="band-sub">The most common reason a website build drags for three months is that it has no end date. This one has one.</p>
+      </div>
+      <div class="steps will-reveal">
+        <div class="step">
+          <div class="step-index">01<em>Day 0</em></div>
+          <div>
+            <h3>Fifteen minutes on the phone</h3>
+            <p>What you do, where you do it, who you want calling. I tell you which of the three options fits and what it costs. If none of them fit, I say that too.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-index">02<em>Days 1&ndash;2</em></div>
+          <div>
+            <h3>You send the raw material</h3>
+            <p>Photos of real work, your service list, your service area, and your logo if you have one. This is the only part that depends on you, and it's the part that stalls most projects. Everything after it is on me.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-index">03<em>Days 3&ndash;10</em></div>
+          <div>
+            <h3>I build it and show you once</h3>
+            <p>You get a working site to click through, not a static picture of one. One round of changes is expected and included &mdash; tell me what's wrong in plain language.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-index">04<em>Day 14 or sooner</em></div>
+          <div>
+            <h3>It goes live and it stays maintained</h3>
+            <p>Domain pointed, forms tested on a real phone, Google profile connected. If you're on a care plan, that's where the ongoing work starts instead of stopping.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-band">
+    <div class="dark-band-bg"></div>
+    <div class="inner">
+      <div class="split will-reveal">
+        <div>
+          <p class="hero-eyebrow">&mdash; Why me</p>
+          <h2>I don't just build sites for contractors. I run one.</h2>
+          <p>I operate Robin Sun Roofing &mdash; inspections, insurance claims, adjuster meetings, build days, collections. I know what a lead actually looks like when it comes in at 7pm, and what happens to it when nobody follows up for two days.</p>
+          <p>That's the difference between this and a template shop. A template shop builds you a brochure. I build the thing that has to catch a lead while you're on a roof.</p>
+        </div>
+        <div class="assurances">
+          <div class="assurance"><b>Flat price, quoted first</b><span>You approve a number before anyone starts.</span></div>
+          <div class="assurance"><b>Under two weeks, with an end date</b><span>Not &ldquo;a few weeks.&rdquo; A date on the calendar.</span></div>
+          <div class="assurance"><b>You own everything</b><span>Domain, content and site stay yours if we part ways.</span></div>
+          <div class="assurance"><b>Portfolio on request</b><span>Happy to walk you through recent work on the call.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light band">
+    <div class="inner">
+      <div class="band-head will-reveal">
+        <p class="band-label">After launch</p>
+        <h2 class="band-title">The care plan exists because websites rot.</h2>
+        <p class="band-sub">Plugins go stale, forms silently stop sending, hosting lapses, and the site you paid for two years ago now works against you. This is the cheapest insurance against that.</p>
+      </div>
+      <div class="care will-reveal">
+        <div>
+          <h3>Care plan</h3>
+          <p>Hosting, backups, security and plugin updates, uptime monitoring, form testing, and small content edits &mdash; hours, not weeks. Month to month. Cancel any time and keep the site.</p>
+        </div>
+        <p class="care-figure">$99<i>/mo</i></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light band">
+    <div class="inner">
+      <div class="band-head will-reveal">
+        <p class="band-label">Next step</p>
+        <h2 class="band-title">Fifteen minutes tells you if this is worth doing.</h2>
+        <p class="band-sub">No pitch deck, no proposal to review, no follow-up sequence. You describe the business, I tell you the option and the number, and you decide.</p>
+        <div class="hero-actions" style="margin-top:38px;margin-bottom:0;">
+          <a href="https://link.brighterdayagency.com/widget/booking/Z5XQ2r6fcOIOH7Tses4T" class="btn btn-dark" target="_blank" rel="noopener">Book the 15-minute call</a>
+          <a href="#pricing" class="btn btn-line">Look at pricing again</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-contact">
+    <div class="contact-bg"></div>
+    <div class="inner">
+      <div class="contact-inner">
+        <h2 class="contact-headline">Let's build something remarkable.</h2>
+        <div class="contact-grid">
+          <div>
+            <p class="contact-label">New Business</p>
+            <a href="mailto:brighterdaysolution@gmail.com" class="contact-value">brighterdaysolution@gmail.com</a>
+          </div>
+          <div>
+            <p class="contact-label">Location</p>
+            <span class="contact-value">Austin, TX</span>
+          </div>
+          <div>
+            <p class="contact-label">Book a call</p>
+            <a href="https://link.brighterdayagency.com/widget/booking/Z5XQ2r6fcOIOH7Tses4T" class="contact-value" target="_blank" rel="noopener">15-minute discovery</a>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <div class="footer-bottom">
+            <span class="footer-logo">the brighter marketing agency</span>
+            <ul class="footer-links">
+              <li><a href="/privacy-policy.html" class="footer-link">Privacy</a></li>
+              <li><a href="/terms-and-conditions.html" class="footer-link">Terms</a></li>
+            </ul>
+            <span class="footer-copy">&copy; 2026 TBMA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 64);
+    }, { passive: true });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.will-reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
